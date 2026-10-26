@@ -131,8 +131,7 @@ var SISHALI_DATA = {
    "preorder": false,
    "img": "assets/dishes/photo/jiangmuya.jpg",
    "imgs": [
-    "assets/dishes/photo/jiangmuya.jpg",
-    "assets/dishes/photo/s01.jpg"
+    "assets/dishes/photo/jiangmuya.jpg"
    ],
    "imgPage": 1,
    "specs": [
@@ -161,8 +160,7 @@ var SISHALI_DATA = {
    "preorder": false,
    "img": "assets/dishes/photo/dongxingban.jpg",
    "imgs": [
-    "assets/dishes/photo/dongxingban.jpg",
-    "assets/dishes/photo/s02.jpg"
+    "assets/dishes/photo/dongxingban.jpg"
    ],
    "imgPage": 2,
    "specs": null
@@ -182,8 +180,7 @@ var SISHALI_DATA = {
    "preorder": false,
    "img": "assets/dishes/photo/chaofan.jpg",
    "imgs": [
-    "assets/dishes/photo/chaofan.jpg",
-    "assets/dishes/photo/s03.jpg"
+    "assets/dishes/photo/chaofan.jpg"
    ],
    "imgPage": 2,
    "specs": [
