@@ -265,6 +265,11 @@
     var awards = ex.awards || [];
     var haw = $("heroAwards");
     if (haw) haw.innerHTML = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
+    var htrack = $("honorTrack");
+    if (htrack && awards.length) {
+      var seq2 = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
+      htrack.innerHTML = seq2 + seq2;
+    }
 
     function gallery(el, list, label) {
       var one = list.map(function (src, i) {
@@ -285,7 +290,7 @@
 
     /* B 版:首页叙事章节 */
     $("mfSlogan").textContent = siteVal("slogan", D.meta.slogan);
-    $("mfText").textContent = siteVal("manifesto", "取食材之鲜，传承经典之肴，细烹淳朴之味，创新闽南之光。\n典雅舒适、独立私密——私厦里经典，一菜一饭一汤。");
+    $("mfText").textContent = siteVal("manifesto", "以山海为灶，以古法为薪。\n一席闽南，半部侨乡。\n私厦里，把厦门的老味道，敬给懂它的你。");
     $("homeAddrShort").innerHTML = D.store.address + "<br>" + primaryPhone();
     var feats = featCandidates();
     $("homeFeat").innerHTML = feats.slice(0, 3).map(function (d, i) {

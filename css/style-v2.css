@@ -533,3 +533,42 @@ textarea { width: 100%; resize: vertical; }
   position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
   color: rgba(236, 229, 211, .8); font-size: 12px; letter-spacing: 2px;
 }
+
+/* ---------- 首页荣誉跑马灯 ---------- */
+.honor-marquee { overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .25); border-bottom: 1px solid rgba(201, 162, 75, .25); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
+.honor-marquee::before, .honor-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 70px; z-index: 2; pointer-events: none; }
+.honor-marquee::before { left: 0; background: linear-gradient(90deg, #171310, transparent); }
+.honor-marquee::after { right: 0; background: linear-gradient(-90deg, #171310, transparent); }
+.hm-track { display: inline-flex; white-space: nowrap; animation: hmScroll 36s linear infinite; will-change: transform; }
+.hm-track span { color: #c9a24b; font-size: 12.5px; letter-spacing: 4px; padding: 0 26px; position: relative; }
+.hm-track span::after { content: "◆"; position: absolute; right: -7px; font-size: 7px; color: #a8322a; top: 50%; transform: translateY(-50%); }
+@keyframes hmScroll { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .hm-track { animation: none; } }
+
+/* ---------- 镇店三绝(米白宣纸底亮色区块) ---------- */
+.trio-feature { background: radial-gradient(130% 100% at 20% 0%, #f6efe0 0%, #f2ead9 55%, #ece1cb 100%); color: #2a2016; padding: 74px 26px 84px; margin-top: -30px; position: relative; }
+.trio-feature::before { content: ""; position: absolute; top: 14px; left: 26px; right: 26px; bottom: 14px; border: 1px solid rgba(168, 50, 42, .16); pointer-events: none; }
+.tf-label { margin-bottom: 34px; }
+.tf-label i { color: #a8322a; }
+.tf-label b { color: #2a2016; }
+.trio-grid { display: grid; grid-template-columns: 1.7fr 1fr; gap: 22px; max-width: 1040px; margin: 0 auto; }
+.trio-side { display: grid; grid-template-rows: 1fr 1fr; gap: 22px; }
+.trio-main, .trio-card { display: flex; flex-direction: column; text-decoration: none; color: inherit; border: 1px solid rgba(168, 50, 42, .28); background: #fbf6ea; box-shadow: 0 18px 44px -22px rgba(60, 38, 20, .45); transition: transform .35s ease, box-shadow .35s ease; }
+.trio-main:hover, .trio-card:hover { transform: translateY(-4px); box-shadow: 0 26px 56px -22px rgba(60, 38, 20, .55); }
+.trio-img { overflow: hidden; }
+.trio-main .trio-img { aspect-ratio: 4 / 2.6; }
+.trio-card .trio-img { aspect-ratio: 16 / 8.2; }
+.trio-img img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s ease; }
+.trio-main:hover .trio-img img, .trio-card:hover .trio-img img { transform: scale(1.045); }
+.trio-info { padding: 16px 18px 18px; border-top: 2px solid #c9a24b; position: relative; }
+.trio-info h3 { font-family: var(--serif); font-size: 22px; letter-spacing: 3px; margin: 8px 0 6px; color: #241b10; }
+.trio-card .trio-info h3 { font-size: 17px; letter-spacing: 2px; }
+.trio-info p { font-size: 13px; color: #6d5c45; letter-spacing: 1px; margin: 0 0 8px; }
+.trio-info em { font-style: normal; color: #a8322a; font-size: 13px; letter-spacing: 1.5px; }
+.t-seal { display: inline-block; background: #a8322a; color: #f6efe0; font-size: 10.5px; letter-spacing: 2px; padding: 3px 9px; border-radius: 2px; transform: rotate(-1.5deg); box-shadow: 2px 2px 0 rgba(168, 50, 42, .22); }
+@media (max-width: 760px) {
+  .trio-grid { grid-template-columns: 1fr; }
+  .trio-side { grid-template-rows: none; grid-template-columns: 1fr; }
+  .trio-feature { padding: 54px 16px 62px; }
+  .trio-feature::before { left: 12px; right: 12px; }
+}
