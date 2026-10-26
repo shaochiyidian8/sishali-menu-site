@@ -60,6 +60,17 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 /* ---------- 首页 hero ---------- */
 .hero { position: relative; height: min(84vh, 700px); min-height: 540px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: -60px; }
 .hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* 图片主视觉轮播(无品牌视频时的 Ken Burns 缓推镜) */
+.hero-slides { position: absolute; inset: 0; overflow: hidden; background: #101208; }
+.hero-slides[hidden] { display: none; }
+.hero-slides .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; animation: heroFade 30s linear infinite, heroZoomA 30s ease-in-out infinite; will-change: opacity, transform; }
+.hero-slides .slide:nth-child(even) { animation-name: heroFade, heroZoomB; }
+@keyframes heroFade { 0%, 1.6% { opacity: 0; } 4%, 14.4% { opacity: 1; } 16.6%, 100% { opacity: 0; } }
+@keyframes heroZoomA { 0% { transform: scale(1.1) translate(1.6%, -1%); } 100% { transform: scale(1.2) translate(-1.6%, 1.2%); } }
+@keyframes heroZoomB { 0% { transform: scale(1.2) translate(-1.6%, 1%); } 100% { transform: scale(1.1) translate(1.6%, -1.2%); } }
+@media (prefers-reduced-motion: reduce) { .hero-slides .slide { animation: none; opacity: 1; } .hero-slides .slide:not(:first-child) { display: none; } }
+.hero-awards { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 24px auto 0; max-width: 660px; }
+.hero-awards span { font-size: 11px; letter-spacing: 1.5px; color: #c9a86a; border: 1px solid rgba(201, 168, 106, .38); padding: 4px 11px; border-radius: 999px; background: rgba(16, 18, 8, .38); white-space: nowrap; }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 10, 4, .24) 0%, rgba(8, 10, 4, .38) 50%, rgba(16, 18, 8, .9) 86%, #101208 100%); }
 .hero-text { position: relative; text-align: center; padding: 0 20px; }
 .hero-text .kicker { letter-spacing: 8px; }
