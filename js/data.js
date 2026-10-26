@@ -288,13 +288,16 @@ var SISHALI_DATA = {
    "unit": "小份",
    "category": "c01",
    "badges": [
+    "招牌",
     "原创"
    ],
    "ingredients": "",
    "uncertain": true,
    "preorder": false,
-   "img": "assets/menu/p10.jpg",
-   "imgs": [],
+   "img": "assets/dishes/photo/jiangmuya.jpg",
+   "imgs": [
+    "assets/dishes/photo/jiangmuya.jpg"
+   ],
    "imgPage": 10,
    "specs": [
     {
@@ -389,12 +392,17 @@ var SISHALI_DATA = {
    "priceText": "时价",
    "unit": "份",
    "category": "c01",
-   "badges": [],
+   "badges": [
+    "招牌",
+    "获奖"
+   ],
    "ingredients": "",
    "uncertain": true,
    "preorder": false,
-   "img": "assets/menu/p11.jpg",
-   "imgs": [],
+   "img": "assets/dishes/photo/dongxingban.jpg",
+   "imgs": [
+    "assets/dishes/photo/dongxingban.jpg"
+   ],
    "imgPage": 11,
    "specs": null
   },
@@ -426,12 +434,17 @@ var SISHALI_DATA = {
    "priceText": "¥79",
    "unit": "小份",
    "category": "c01",
-   "badges": [],
+   "badges": [
+    "招牌",
+    "推荐"
+   ],
    "ingredients": "",
    "uncertain": true,
    "preorder": false,
-   "img": "assets/menu/p11.jpg",
-   "imgs": [],
+   "img": "assets/dishes/photo/hailijian.jpg",
+   "imgs": [
+    "assets/dishes/photo/hailijian.jpg"
+   ],
    "imgPage": 11,
    "specs": [
     {
@@ -1127,12 +1140,16 @@ var SISHALI_DATA = {
    "priceText": "¥22",
    "unit": "位",
    "category": "c05",
-   "badges": [],
+   "badges": [
+    "招牌"
+   ],
    "ingredients": "",
    "uncertain": true,
    "preorder": false,
-   "img": "assets/menu/p26.jpg",
-   "imgs": [],
+   "img": "assets/dishes/photo/chaofan.jpg",
+   "imgs": [
+    "assets/dishes/photo/chaofan.jpg"
+   ],
    "imgPage": 26,
    "specs": [
     {
