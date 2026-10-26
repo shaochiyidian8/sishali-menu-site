@@ -118,9 +118,9 @@ var SISHALI_DATA = {
   {
    "id": "m001",
    "name": "私厦焖鲍姜母鸭",
-   "price": null,
-   "priceText": "时价",
-   "unit": "份",
+   "price": 189,
+   "priceText": "¥189",
+   "unit": "小份",
    "category": "c00",
    "badges": [
     "招牌",
@@ -135,7 +135,16 @@ var SISHALI_DATA = {
     "assets/dishes/photo/s01.jpg"
    ],
    "imgPage": 1,
-   "specs": null
+   "specs": [
+    {
+     "label": "小份",
+     "price": 189
+    },
+    {
+     "label": "大份",
+     "price": 366
+    }
+   ]
   },
   {
    "id": "m002",
@@ -161,9 +170,9 @@ var SISHALI_DATA = {
   {
    "id": "m003",
    "name": "松露海皇炒饭",
-   "price": null,
-   "priceText": "时价",
-   "unit": "份",
+   "price": 22,
+   "priceText": "¥22",
+   "unit": "位",
    "category": "c00",
    "badges": [
     "招牌"
@@ -177,7 +186,12 @@ var SISHALI_DATA = {
     "assets/dishes/photo/s03.jpg"
    ],
    "imgPage": 2,
-   "specs": null
+   "specs": [
+    {
+     "label": "位",
+     "price": 22
+    }
+   ]
   },
   {
    "id": "m004",
