@@ -1,0 +1,406 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>私厦里 SI SHA LI · 新闽南 大悦城店</title>
+<meta name="description" content="私厦里·新闽南(厦门集美大悦城店)在线点单:新闽南菜品、招牌一菜一饭一汤、包厢预约。取食材之鲜,传承经典之肴。">
+<meta property="og:title" content="私厦里 SI SHA LI · 新闽南 大悦城店">
+<meta property="og:description" content="在线点单 · 包厢预约 · 取食材之鲜,创新闽南之光">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#101208">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23101208'/%3E%3Ccircle cx='32' cy='32' r='28' fill='none' stroke='%23c9a86a' stroke-width='2'/%3E%3Ctext x='32' y='43' font-size='28' text-anchor='middle' fill='%23c9a86a' font-family='Songti SC,serif'%3E私%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style-v2.css">
+</head>
+<body class="v2">
+
+
+<div id="noticeBar" class="notice-bar" hidden></div>
+
+<main id="app">
+
+  <!-- 首页:叙事长卷 -->
+  <section class="view" id="view-home">
+    <div class="hero">
+      <video id="heroBgVideo" autoplay muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" preload="auto" poster="assets/video/brand_poster.jpg"></video>
+      <div class="splash" id="splash">
+        <p class="kicker">SI SHA LI · NEW MINNAN</p>
+        <div class="splash-word">私厦里</div>
+        <p class="splash-sub">取食材之鲜 · 创新闽南之光</p>
+        <button class="splash-enter" id="splashEnter">进 入</button>
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-text">
+        <p class="kicker" id="heroEn"></p>
+        <h1 id="heroTitle"></h1>
+        <p class="hero-sub" id="heroSlogan"></p>
+        <p class="hero-since" id="heroSince"></p>
+        <div class="hero-cta"><a class="tbtn solid" href="#/menu">开始点单</a><a class="tbtn" href="#/reserve">预约包厢</a></div>
+      </div>
+    </div>
+
+    <div class="manifesto rv">
+      <p class="mf-big" id="mfSlogan"></p>
+      <p class="mf-text" id="mfText"></p>
+      <div class="mf-rule"></div>
+    </div>
+
+    <div class="chapters">
+      <div class="ch-label rv"><i>CHAPTER</i><b>本日精选</b></div>
+      <div id="homeFeat"></div>
+      <div class="ch-more rv"><a class="tlink" href="#/menu">进入完整菜单 →</a></div>
+    </div>
+
+    <div class="home-strip rv" id="homeStrip"></div>
+
+    <div class="home-video rv">
+      <h3 class="hv-title">品牌影片</h3>
+      <video id="storeVideo2" controls playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="none" poster="assets/video/brand_poster.jpg"></video>
+    </div>
+
+    <div class="home-closing rv">
+      <p class="mf-big">恭候光临</p>
+      <p class="mf-text" id="homeAddrShort"></p>
+      <div class="hero-cta"><a class="tlink" href="#/location">导航到店</a><span class="dot"></span><a class="tlink" href="#/visit">停车指引</a></div>
+    </div>
+  </section>
+
+  <!-- 菜单册 -->
+  <section class="view" id="view-menu">
+    <div class="page-head">
+      <p class="kicker">THE MENU</p>
+      <h2>菜单</h2>
+      <div class="tabs" id="groupTabs">
+        <button data-group="menu" class="on">菜品</button>
+        <button data-group="drinks">酒水</button>
+      </div>
+      <button class="filter-toggle" id="filterToggle">筛选价位</button>
+      <div class="search-bar"><input id="menuSearch" placeholder="搜索菜名 / 食材…" autocomplete="off"><button id="menuSearchClear" hidden>×</button></div>
+    </div>
+    <div class="filters" id="filterBar">
+      <div class="price-wrap" id="priceWrap"><div class="chips" id="priceBands"></div></div>
+      <div class="chips cats" id="catChips"></div>
+    </div>
+    <p class="preorder-tip" id="preorderTip" hidden>预定菜品需提前与门店预订，时价以门店当日价为准。</p>
+    <div class="menu-book" id="dishGrid"></div>
+  </section>
+
+  <!-- 到店 -->
+  <section class="view" id="view-visit">
+    <div class="page-head"><p class="kicker">THE ARRIVAL</p><h2>到店</h2></div>
+    <div class="visit-hero">
+      <video id="parkingVideo" controls playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="metadata" poster="assets/store/env2.jpg"></video>
+    </div>
+    <div class="steps-row" id="parkingSteps"></div>
+    <div class="vg-block rv"><h3 class="vg-title"><i>ENVIRONMENT</i>店内环境</h3><div class="visit-gallery" id="envGallery"></div></div>
+    <div class="vg-block rv"><h3 class="vg-title"><i>SIGNATURE</i>推荐菜品</h3><div class="visit-gallery" id="recGallery"></div></div>
+  </section>
+
+  <!-- 寻址 -->
+  <section class="view" id="view-location">
+    <div class="loc-split">
+      <div class="loc-left rv">
+        <p class="kicker">FIND US</p>
+        <h2>寻址</h2>
+        <p class="addr" id="locAddr"></p>
+        <p class="access" id="locAccess"></p>
+        <div class="info-actions">
+          <a class="tbtn" id="infoCall">致电</a>
+          <a class="tbtn" target="_blank" rel="noopener" id="mapAmap">高德</a>
+          <a class="tbtn" target="_blank" rel="noopener" id="mapBaidu">百度</a>
+          <button class="tbtn" id="btnCopyAddr">复制地址</button>
+        </div>
+      </div>
+      <div class="loc-right rv" id="locGallery"></div>
+    </div>
+    <div class="info-grid" id="infoGrid"></div>
+  </section>
+
+  <!-- 预约 -->
+  <section class="view" id="view-reserve">
+    <div class="page-head"><p class="kicker">RESERVATION</p><h2>预约</h2>
+      <p class="page-sub">提交后我们将第一时间与您确认</p></div>
+    <div class="inv-card rv">
+      <div class="inv-form">
+        <label>贵宾称呼 <input id="rvGuest" placeholder="张先生 / 王女士"></label>
+        <label>联系电话 <input id="rvPhone" type="tel" placeholder="用于店家回电确认"></label>
+        <label>预定日期 <input type="date" id="rvDate"></label>
+        <label>餐段 <select id="rvSession"><option>午餐</option><option selected>晚餐</option></select></label>
+        <label>时间 <input type="time" id="rvTime" value="18:30"></label>
+        <label>包厢 <input id="rvRoom" list="roomList" value="秋分包厢"><datalist id="roomList"></datalist></label>
+        <label>人数 <input type="number" id="rvParty" value="6" min="1"></label>
+        <label class="wide">忌口 / 备注 <input id="rvNote" placeholder="不吃辣、海鲜过敏…"></label>
+      </div>
+      <div class="row-btns">
+        <button class="tbtn solid" id="rvSubmit">提交预约</button>
+        <button class="tbtn" id="rvCopy">复制预约信息</button>
+      </div>
+      <div id="rvResult" class="rv-result" hidden></div>
+      <textarea id="rvOutput" rows="14" readonly hidden></textarea>
+    </div>
+  </section>
+
+  <!-- 店家 -->
+  <section class="view" id="view-staff" hidden>
+    <div class="page-head"><p class="kicker">STAFF CONSOLE</p><h2>店家后台</h2></div>
+    <div class="adm-shell">
+      <nav class="adm-tabs" id="admTabs">
+        <button data-tab="dash" class="on">概览</button>
+        <button data-tab="resv">预约<span id="resvBadge" class="adm-badge" hidden></span></button>
+        <button data-tab="dish">菜品</button>
+        <button data-tab="site">页面</button>
+        <button data-tab="set">设置</button>
+      </nav>
+
+      <div class="adm-tab" id="tab-dash">
+        <div class="stat-row">
+          <div class="stat"><b id="stOrders">0</b><span>今日单数</span></div>
+          <div class="stat"><b id="stRevenue">¥0</b><span>今日金额</span></div>
+          <div class="stat"><b id="stResv">0</b><span>新预约</span></div>
+          <div class="stat"><b id="stDishes">0</b><span>在售 / 售罄</span></div>
+        </div>
+        <div class="adm-panel"><h3>线上订单</h3><div id="custOrders"></div></div>
+        <div class="adm-panel"><h3>今日订单（线下录入）</h3><div id="todayOrders"></div></div>
+      </div>
+
+      <div class="adm-tab" id="tab-resv" hidden>
+        <div class="adm-panel">
+          <h3>预约列表</h3>
+          <div class="adm-tools"><input id="resvFilter" type="date"><button class="tbtn ghost" id="resvExport">导出</button></div>
+          <div id="resvList"></div>
+        </div>
+      </div>
+
+      <div class="adm-tab" id="tab-dish" hidden>
+        <div class="adm-grid2">
+          <div class="adm-panel">
+            <h3>上新菜品</h3>
+            <div class="adm-form">
+              <label>菜名 <input id="ndName" placeholder="例：香酥紫菜虾排"></label>
+              <label>分类 <select id="ndCat"></select></label>
+              <div class="two-col">
+                <label>价格 <input id="ndPrice" type="number" min="0" placeholder="留空=时价"></label>
+                <label>单位 <input id="ndUnit" value="份"></label>
+              </div>
+              <div class="two-col">
+                <label>标签 <select id="ndBadge"><option value="">无</option><option>招牌</option><option>推荐</option><option>福建特色</option><option>宴请推荐</option><option>喜辣</option></select></label>
+                <label>食材 <input id="ndIng" placeholder="五花肉、咸笋"></label>
+              </div>
+              <label>菜品图片
+                <div class="file-row">
+                  <button type="button" class="tbtn" id="ndImgPick">选择图片</button>
+                  <span class="file-name" id="ndImgName">未选择文件</span>
+                </div>
+              </label>
+              <label>视频路径（放入 assets/dishes/videos/ 后填写） <input id="ndVideo" placeholder="assets/dishes/videos/x001.mp4"></label>
+              <div class="row-btns"><button class="tbtn solid" id="ndAdd">上新</button></div>
+            </div>
+          </div>
+          <div class="adm-panel">
+            <h3>自定义菜品</h3><div id="customList" class="soldout-list"></div>
+            <h4 class="adm-sub">内置菜品显隐</h4>
+            <input id="hideSearch" placeholder="搜索内置菜品…">
+            <div id="hideList" class="soldout-list"></div>
+          </div>
+          <div class="adm-panel">
+            <h3>售罄 / 上架</h3>
+            <input id="soldoutSearch" placeholder="搜索菜品…">
+            <div id="soldoutList" class="soldout-list"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-tab" id="tab-site" hidden>
+        <div class="adm-grid2">
+          <div class="adm-panel">
+            <h3>站点信息</h3>
+            <div class="adm-form">
+              <label>店名 <input id="svBrand" placeholder="私厦里·新闽南"></label>
+              <label>副标（页面标题用） <input id="svBranch" placeholder="大悦城店"></label>
+              <label>英文标识 <input id="svEn" placeholder="SI SHA LI · NEW MINNAN CUISINE"></label>
+              <label>标语 <input id="svSlogan" placeholder="取食材之鲜，创新闽南之光"></label>
+              <label>地址 <input id="svAddr"></label>
+              <label>交通指引 <input id="svAccess"></label>
+              <label>预订电话 <input id="svPhone"></label>
+              <label>顶部公告 <input id="svNotice" placeholder="留空则不显示"></label>
+              <label>营业时间 <input id="svHours" placeholder="如：午餐 11:00-14:00 / 晚餐 17:00-21:30"></label>
+              <label>WiFi <input id="svWifi" placeholder="如：SSID / 密码"></label>
+              <label class="wide">首页宣言文案 <textarea id="svManifesto" rows="3" placeholder="取食材之鲜，创新闽南之光。"></textarea></label>
+              <div class="row-btns"><button class="tbtn solid" id="svSave">保存站点信息</button></div>
+            </div>
+          </div>
+          <div class="adm-panel">
+            <h3>首页精选</h3>
+            <p class="cap">选择最多 3 道菜展示在首页精选章节；不选则自动按招牌/价格推荐。</p>
+            <input id="featSearch" placeholder="搜索菜品…">
+            <div id="featPicks" class="feat-picks"></div>
+            <div id="featResults" class="soldout-list"></div>
+          </div>
+          <div class="adm-panel">
+            <h3>主页视频</h3>
+            <p class="cap">上传后替换首页背景影片与品牌影片（存本机浏览器，大文件亦可）</p>
+            <video id="svBrandPreview" controls playsinline preload="none" class="adm-video"></video>
+            <div class="row-btns">
+              <button class="tbtn" id="svBrandPick">上传替换</button>
+              <button class="tbtn ghost" id="svBrandReset">恢复默认</button>
+            </div>
+            <input type="file" id="svBrandFile" accept="video/*" hidden>
+            <h4 class="adm-sub">停车指引视频</h4>
+            <video id="svParkPreview" controls playsinline preload="none" class="adm-video"></video>
+            <div class="row-btns">
+              <button class="tbtn" id="svParkPick">上传替换</button>
+              <button class="tbtn ghost" id="svParkReset">恢复默认</button>
+            </div>
+            <input type="file" id="svParkFile" accept="video/*" hidden>
+          </div>
+          <div class="adm-panel">
+            <h3>到店图片</h3>
+            <p class="cap">店内环境 3 张 / 推荐菜品 3 张，点击对应位置上传替换</p>
+            <div class="adm-imggrid" id="siteImgGrid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="adm-tab" id="tab-set" hidden>
+        <div class="adm-grid2">
+          <div class="adm-panel">
+            <h3>桌号 / 包厢</h3>
+            <label>列表（逗号或换行分隔） <textarea id="tablesInput" rows="3" placeholder="秋分包厢，春分包厢，…"></textarea></label>
+            <div class="row-btns"><button class="tbtn solid" id="tablesSave">保存桌号</button></div>
+          </div>
+          <div class="adm-panel">
+            <h3>安全</h3>
+            <label>新店家密码（4-12位数字） <input id="npPass" type="password" inputmode="numeric" maxlength="12"></label>
+            <div class="row-btns"><button class="tbtn solid" id="npSave">保存密码</button></div>
+            <h4 class="adm-sub">数据</h4>
+            <div class="row-btns"><button class="tbtn" id="exportOrders">导出今日订单</button></div>
+            <p class="cap">本机浏览器存储；跨设备正式同步需上线服务端后接入。</p>
+          </div>
+          <div class="adm-panel">
+            <h3>收款方式</h3>
+            <div class="pay-slot">
+              <span>微信收款码</span>
+              <div class="file-row"><button type="button" class="tbtn" id="payWxPick">上传二维码</button><button type="button" class="tbtn ghost" id="payWxClear">清除</button></div>
+            </div>
+            <div class="pay-slot">
+              <span>支付宝收款码</span>
+              <div class="file-row"><button type="button" class="tbtn" id="payAliPick">上传二维码</button><button type="button" class="tbtn ghost" id="payAliClear">清除</button></div>
+            </div>
+            <p class="cap">上传后,顾客下单即可选择对应方式并扫码付款;未上传则仅支持到店支付。官方微信支付/支付宝接口(自动到账对账)为后续版本,配置位已预留。</p>
+            <input type="file" id="payImgFile" accept="image/*" hidden>
+          </div>
+          <div class="adm-panel">
+            <h3>店铺信息覆盖（旧）</h3>
+            <label>预订电话 <input id="ovPhone" placeholder="17700080908"></label>
+            <label>公告 <input id="ovNotice" placeholder="今日包厢已满"></label>
+            <div class="row-btns"><button class="tbtn" id="ovSave">保存</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<button class="back-top" id="backTop" aria-label="回到顶部" hidden>↑</button>
+<footer class="footer">
+  <div class="ft-links">
+    <a href="#/menu">菜单</a><a href="#/visit">到店</a><a href="#/location">寻址</a>
+    <a href="#/reserve">预约</a>
+    <button class="ft-staff" id="myOrdersEntry">我的订单</button>
+    <button id="staffEntry" class="ft-staff">店家入口</button>
+  </div>
+  <div class="ft-brand">私厦里<i>SI SHA LI · NEW MINNAN CUISINE</i></div>
+  <p id="footerMeta"></p>
+</footer>
+
+<a class="brand-fix" id="brandFix" href="#/home">私厦里<i>SI SHA LI</i></a>
+<a class="back-home" id="backHome" href="#/home" hidden>‹ 首页</a>
+
+<div class="cartbar" id="cartBar" hidden>
+  <button class="table-chip" id="tableChip">选桌号</button>
+  <span id="cartSummary"></span>
+  <button class="tbtn solid" id="cartOpen">去下单</button>
+</div>
+
+<div class="drawer-mask" id="drawerMask" hidden></div>
+<aside class="cart-drawer" id="cartDrawer" hidden>
+  <h3>订单</h3>
+  <div id="cartItems"></div>
+  <label class="cart-note">忌口 / 备注 <input id="cartNote" placeholder="不吃辣、海鲜过敏…"></label>
+  <div id="staffFields" hidden>
+    <div class="row">
+      <label>餐段 <select id="odSession"><option>午餐</option><option selected>晚餐</option></select></label>
+      <label>包厢/桌号 <input id="odRoom" placeholder="秋分包厢"></label>
+      <label>人数 <input type="number" id="odParty" value="2" min="1"></label>
+    </div>
+  </div>
+  <div class="pay-pick" id="payPick"></div>
+  <textarea id="orderOutput" rows="8" readonly hidden></textarea>
+  <div class="row-btns">
+    <button class="tbtn solid" id="orderSubmit">提交订单</button>
+    <button class="tbtn" id="orderGen">生成文本</button>
+    <button class="tbtn" id="orderCopy" hidden>复制</button>
+    <button class="tbtn" id="orderSaveStaff" hidden>记线下单</button>
+    <button class="tbtn ghost" id="cartClear">清空</button>
+  </div>
+  <div id="orderSuccess" class="rv-result" hidden></div>
+</aside>
+
+<div class="modal-mask" id="passModal" hidden>
+  <div class="modal"><h3>店家验证</h3>
+    <p class="cap">请输入店家密码</p>
+    <input id="passInput" type="password" inputmode="numeric" maxlength="12" autocomplete="off">
+    <p class="modal-error" id="passError" hidden>密码不正确</p>
+    <div class="row-btns"><button class="tbtn solid" id="passOk">进入</button><button class="tbtn ghost" id="passCancel">取消</button></div>
+  </div>
+</div>
+
+<div class="modal-mask" id="tableModal" hidden>
+  <div class="modal"><h3>桌号 / 包厢</h3>
+    <div class="table-grid" id="tableGrid"></div>
+    <label class="table-manual" id="tableInputRow">或手动输入 <input id="tableInput" placeholder="T5 / 大堂3"></label>
+    <div class="row-btns"><button class="tbtn solid" id="tableOk">确认</button><button class="tbtn ghost" id="tableSkip">暂不选择</button></div>
+  </div>
+</div>
+
+<div class="modal-mask" id="payModal" hidden>
+  <div class="modal">
+    <h3>扫码支付</h3>
+    <img id="payQrImg" class="pay-qr" alt="收款码">
+    <p class="cap">长按识别 / 扫码完成后，回到页面点击下方按钮</p>
+    <div class="row-btns"><button class="tbtn solid" id="payDone">我已支付</button><button class="tbtn ghost" id="payClose">关闭</button></div>
+  </div>
+</div>
+
+<div class="modal-mask" id="myOrdersModal" hidden>
+  <div class="modal my-orders">
+    <h3>我的订单</h3>
+    <div id="myOrdersList"></div>
+    <div class="row-btns"><button class="tbtn ghost" id="myOrdersClose">关闭</button></div>
+  </div>
+</div>
+
+<div class="modal-mask" id="videoModal" hidden>
+  <div class="modal video-modal">
+    <video id="dishVideoPlayer" controls playsinline></video>
+    <div class="row-btns"><button class="tbtn ghost" id="videoClose">关闭</button></div>
+  </div>
+</div>
+<input type="file" id="ndImg" accept="image/*" hidden>
+<input type="file" id="dishImgFile" accept="image/*" hidden>
+<input type="file" id="siteImgFile" accept="image/*" hidden>
+
+<div class="viewer" id="viewer" hidden>
+  <button class="viewer-close" id="viewerClose">×</button>
+  <button class="viewer-prev" id="viewerPrev">‹</button>
+  <span class="viewer-count" id="viewerCount" hidden></span>
+  <img id="viewerImg" alt="">
+  <button class="viewer-next" id="viewerNext">›</button>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app-v2.js"></script>
+</body>
+</html>
