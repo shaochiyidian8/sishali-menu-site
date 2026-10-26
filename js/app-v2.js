@@ -265,6 +265,11 @@
     var awards = ex.awards || [];
     var haw = $("heroAwards");
     if (haw) haw.innerHTML = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
+    var htrack = $("honorTrack");
+    if (htrack && awards.length) {
+      var seq2 = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
+      htrack.innerHTML = seq2 + seq2;
+    }
 
     function gallery(el, list, label) {
       var one = list.map(function (src, i) {
