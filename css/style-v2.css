@@ -160,8 +160,8 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 .mthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .thumb-ph { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--serif); font-size: 20px; color: hsl(var(--h), 20%, 66%); background: linear-gradient(140deg, hsl(var(--h), 14%, 18%), hsl(calc(var(--h) + 40), 16%, 13%)); }
 .mmain { flex: 1; min-width: 0; }
-.mrow1 { display: flex; align-items: baseline; gap: 8px; overflow: hidden; }
-.mname { font-size: 16.5px; letter-spacing: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; flex: 0 1 auto; max-width: 56%; }
+.mrow1 { display: flex; align-items: baseline; gap: 8px; }
+.mname { font-size: 16.5px; letter-spacing: 1px; white-space: normal; overflow-wrap: break-word; min-width: 0; flex: 0 1 auto; }
 .dots { flex: 1 1 14px; border-bottom: 1px dotted rgba(201, 168, 106, .35); transform: translateY(-4px); min-width: 14px; max-width: 90px; }
 .mprice { color: var(--gold); font-size: 17px; white-space: nowrap; flex: none; }
 .mprice b { color: var(--sea); font-size: 11px; font-family: var(--sans); }
@@ -265,7 +265,7 @@ textarea { width: 100%; resize: vertical; }
 .cart-drawer h3 { letter-spacing: 6px; margin-top: 0; font-weight: 400; }
 .cart-item { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
 .cart-item .n { flex: 1; }
-.cart-item .p { color: var(--gold); font-family: var(--serif); white-space: nowrap; }
+.cart-item .p { color: var(--gold); font-family: var(--serif); overflow-wrap: break-word; }
 .cart-item button { border: 1px solid var(--line); background: transparent; color: var(--cream); width: 24px; height: 24px; cursor: pointer; }
 .cart-note { margin-top: 12px; }
 .cart-drawer .row { display: flex; gap: 8px; margin-top: 10px; }
