@@ -535,14 +535,14 @@ textarea { width: 100%; resize: vertical; }
 }
 
 /* ---------- 首页荣誉跑马灯 ---------- */
-.honor-marquee { overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .18); border-bottom: 1px solid rgba(201, 162, 75, .18); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
+.honor-marquee { min-height: 40px; overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .18); border-bottom: 1px solid rgba(201, 162, 75, .18); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
 .honor-marquee::before, .honor-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 70px; z-index: 2; pointer-events: none; }
 .honor-marquee::before { left: 0; background: linear-gradient(90deg, #171310, transparent); }
 .honor-marquee::after { right: 0; background: linear-gradient(-90deg, #171310, transparent); }
 .hm-track { display: inline-flex; white-space: nowrap; animation: hmScroll 36s linear infinite; will-change: transform; }
 .hm-track span { color: #c9a24b; font-size: 12.5px; letter-spacing: 4px; padding: 0 26px; position: relative; }
 .hm-track span::after { content: "◆"; position: absolute; right: -7px; font-size: 7px; color: #a8322a; top: 50%; transform: translateY(-50%); }
-@keyframes hmScroll { to { transform: translateX(-50%); } }
+@keyframes hmScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 @media (prefers-reduced-motion: reduce) { .hm-track { animation: none; } }
 
 /* ---------- 镇店三绝(米白宣纸底亮色区块) ---------- */
