@@ -8,7 +8,7 @@
 <meta property="og:title" content="私厦里 SI SHA LI · 新闽南 大悦城店">
 <meta property="og:description" content="在线点单 · 包厢预约 · 取食材之鲜,创新闽南之光">
 <meta property="og:type" content="website">
-<meta name="theme-color" content="#101208">
+<meta name="theme-color" content="#171310">
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%23101208'/%3E%3Ccircle cx='32' cy='32' r='28' fill='none' stroke='%23c9a86a' stroke-width='2'/%3E%3Ctext x='32' y='43' font-size='28' text-anchor='middle' fill='%23c9a86a' font-family='Songti SC,serif'%3E私%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style-v2.css">
@@ -22,20 +22,27 @@
 
   <!-- 首页:叙事长卷 -->
   <section class="view" id="view-home">
-    <div class="hero">
-      <video id="heroBgVideo" autoplay muted loop playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" x5-video-player-fullscreen="false" preload="auto" poster="assets/video/brand_poster.jpg"></video>
-      <div class="hero-slides" id="heroSlides" aria-hidden="true"></div>
+    <div class="hero hero-v4">
+      <svg class="hero-roof" viewBox="0 0 1440 200" preserveAspectRatio="none" aria-hidden="true">
+        <path class="roof-line echo" pathLength="1000" d="M-20,150 C200,118 400,152 720,140 C1040,128 1230,152 1372,112 C1402,102 1428,80 1452,52"/>
+        <path class="roof-line main" pathLength="1000" d="M-20,150 C200,118 400,152 720,140 C1040,128 1230,152 1372,112 C1402,102 1428,80 1452,52"/>
+      </svg>
+      <div class="hero-char" aria-hidden="true">私</div>
+      <div class="hero-brick" aria-hidden="true"></div>
+      <div class="hero-verse" aria-hidden="true">取食材之鲜 · 传承经典之肴</div>
       <div class="splash" id="splash">
         <p class="kicker">SI SHA LI · NEW MINNAN</p>
         <div class="splash-word">私厦里</div>
-        <p class="splash-sub">取食材之鲜 · 创新闽南之光</p>
+        <p class="splash-sub">推门入巷深 · 一席私藏的闽南</p>
         <button class="splash-enter" id="splashEnter">进 入</button>
       </div>
       <div class="hero-overlay"></div>
       <div class="hero-text">
         <p class="kicker" id="heroEn"></p>
         <h1 id="heroTitle"></h1>
-        <p class="hero-sub" id="heroSlogan"></p>
+        <div class="trio" aria-hidden="true"><i></i><i></i><i></i></div>
+        <p class="hero-sub" id="heroTrio">一菜 · 一饭 · 一汤</p>
+        <p class="hero-slogan-v" id="heroSlogan"></p>
         <p class="hero-since" id="heroSince"></p>
         <div class="hero-cta"><a class="tbtn solid" href="#/menu">开始点单</a><a class="tbtn" href="#/reserve">预约包厢</a></div>
         <div class="hero-awards" id="heroAwards"></div>
@@ -55,11 +62,6 @@
     </div>
 
     <div class="home-strip rv" id="homeStrip"></div>
-
-    <div class="home-video rv">
-      <h3 class="hv-title">品牌影片</h3>
-      <video id="storeVideo2" controls playsinline webkit-playsinline x5-playsinline x5-video-player-type="h5" preload="none" poster="assets/video/brand_poster.jpg"></video>
-    </div>
 
     <div class="home-closing rv">
       <p class="mf-big">恭候光临</p>

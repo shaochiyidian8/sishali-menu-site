@@ -58,27 +58,42 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 .page-sub { color: var(--muted); font-size: 13px; letter-spacing: 2px; margin: 14px 0 0; }
 
 /* ---------- 首页 hero ---------- */
-.hero { position: relative; height: min(84vh, 700px); min-height: 540px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: -60px; }
-.hero video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* 图片主视觉轮播(无品牌视频时的 Ken Burns 缓推镜) */
-.hero-slides { position: absolute; inset: 0; overflow: hidden; background: #101208; }
-.hero-slides[hidden] { display: none; }
-.hero-slides .slide { position: absolute; inset: 0; background-size: cover; background-position: center; opacity: 0; animation: heroFade 30s linear infinite, heroZoomA 30s ease-in-out infinite; will-change: opacity, transform; }
-.hero-slides .slide:nth-child(even) { animation-name: heroFade, heroZoomB; }
-@keyframes heroFade { 0%, 1.6% { opacity: 0; } 4%, 14.4% { opacity: 1; } 16.6%, 100% { opacity: 0; } }
-@keyframes heroZoomA { 0% { transform: scale(1.1) translate(1.6%, -1%); } 100% { transform: scale(1.2) translate(-1.6%, 1.2%); } }
-@keyframes heroZoomB { 0% { transform: scale(1.2) translate(-1.6%, 1%); } 100% { transform: scale(1.1) translate(1.6%, -1.2%); } }
-@media (prefers-reduced-motion: reduce) { .hero-slides .slide { animation: none; opacity: 1; } .hero-slides .slide:not(:first-child) { display: none; } }
-.hero-awards { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 24px auto 0; max-width: 660px; }
-.hero-awards span { font-size: 11px; letter-spacing: 1.5px; color: #c9a86a; border: 1px solid rgba(201, 168, 106, .38); padding: 4px 11px; border-radius: 999px; background: rgba(16, 18, 8, .38); white-space: nowrap; }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(8, 10, 4, .24) 0%, rgba(8, 10, 4, .38) 50%, rgba(16, 18, 8, .9) 86%, #101208 100%); }
+.hero { position: relative; height: min(88vh, 760px); min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: -60px; background: radial-gradient(120% 90% at 78% 8%, #241c14 0%, #171310 46%, #100d0a 100%); }
+/* v4 纯设计主视觉:燕尾脊金线 / 巨字留白 / 红砖纹 / 竖排题字 */
+.hero-roof { position: absolute; top: 7%; left: 0; width: 100%; height: clamp(90px, 16vh, 170px); }
+.roof-line { fill: none; stroke: #c9a24b; stroke-width: 2.4; stroke-linecap: round; }
+.roof-line.main { opacity: .9; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: roofDraw 2.4s cubic-bezier(.6, 0, .2, 1) .35s forwards; }
+.roof-line.echo { opacity: 0; stroke-width: 1; stroke-dasharray: 1000; stroke-dashoffset: 1000; animation: roofDraw 2.6s cubic-bezier(.6, 0, .2, 1) .95s forwards; }
+.roof-line.echo { opacity: .22; }
+@keyframes roofDraw { to { stroke-dashoffset: 0; } }
+.hero-char { position: absolute; right: -6%; bottom: -16%; font-family: var(--serif); font-size: clamp(300px, 46vh, 520px); line-height: 1; color: rgba(201, 162, 75, .05); user-select: none; animation: charIn 2.8s ease-out .5s both; }
+@keyframes charIn { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.hero-brick { position: absolute; left: 0; right: 0; bottom: 0; height: 30%;
+  background:
+    repeating-linear-gradient(0deg, rgba(168, 50, 42, .16) 0 2px, transparent 2px 46px),
+    repeating-linear-gradient(90deg, rgba(168, 50, 42, .16) 0 2px, transparent 2px 96px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 62%); mask-image: linear-gradient(180deg, transparent 0, #000 62%);
+  animation: brickDrift 140s linear infinite; }
+@keyframes brickDrift { to { background-position: 96px 0, 96px 0; } }
+.hero-verse { position: absolute; right: clamp(18px, 4vw, 54px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; letter-spacing: 12px; color: rgba(242, 234, 217, .46); font-size: 13px; padding-right: 14px; border-right: 1px solid rgba(201, 162, 75, .4); }
+@media (max-width: 760px) { .hero-verse { display: none; } }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 13, 10, .1) 0%, rgba(16, 13, 10, .18) 46%, rgba(16, 13, 10, .82) 86%, #101208 100%); }
 .hero-text { position: relative; text-align: center; padding: 0 20px; }
-.hero-text .kicker { letter-spacing: 8px; }
-.hero-text h1 { font-size: clamp(48px, 8vw, 88px); margin: 6px 0; letter-spacing: 22px; text-indent: 22px; font-weight: 400; }
-.hero-sub { color: #d8cfb4; font-size: 18px; letter-spacing: 6px; margin: 6px 0; }
+.hero-text .kicker { letter-spacing: 8px; color: #c9a24b; }
+.hero-text h1 { font-size: clamp(54px, 9vw, 96px); margin: 10px 0 4px; letter-spacing: 26px; text-indent: 26px; font-weight: 400; color: #f2ead9; }
+.trio { display: flex; gap: 30px; justify-content: center; margin: 14px 0 10px; }
+.trio i { width: 36px; height: 18px; border: 2px solid #c9a24b; border-bottom: none; border-radius: 36px 36px 0 0; opacity: .85; }
+.trio i:nth-child(2) { transform: translateY(5px); opacity: .65; }
+.trio i:nth-child(3) { opacity: .45; }
+.hero-sub { color: #c9a24b; font-size: clamp(15px, 2.4vw, 19px); letter-spacing: 8px; margin: 4px 0; }
+.hero-slogan-v { color: #d8cfb4; font-size: 13px; letter-spacing: 4px; margin: 10px 0 2px; }
 .hero-since { color: #9a927b; font-size: 11px; letter-spacing: 3px; margin: 2px 0 26px; }
 .hero-cta { display: flex; align-items: center; justify-content: center; gap: 18px; }
-.hero-cta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--gold); }
+.hero-cta .dot { width: 3px; height: 3px; border-radius: 50%; background: #c9a24b; }
+.hero-awards { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 10px; margin: 26px auto 0; max-width: 680px; }
+.hero-awards span { font-size: 11px; letter-spacing: 1.5px; color: #c9a24b; border: 1px solid rgba(201, 162, 75, .4); padding: 4px 11px; border-radius: 999px; background: rgba(23, 19, 16, .55); white-space: nowrap; }
+.hero-awards span:first-child { background: #a8322a; border-color: #a8322a; color: #f2ead9; }
+@media (prefers-reduced-motion: reduce) { .roof-line, .hero-char, .hero-brick { animation: none; } .roof-line { stroke-dashoffset: 0; } }
 .tlink { color: var(--gold); text-decoration: none; letter-spacing: 4px; font-size: 14px; border-bottom: 1px solid rgba(201, 168, 106, .45); padding-bottom: 3px; transition: all .2s; }
 .tlink:hover { color: var(--gold-soft); border-bottom-color: var(--gold-soft); }
 .scroll-hint { position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: #8d8672; font-size: 10px; letter-spacing: 4px; display: flex; flex-direction: column; align-items: center; gap: 8px; }

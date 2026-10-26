@@ -54,14 +54,6 @@ var SISHALI_DATA = {
     "assets/store/rec3.jpg"
    ],
    "manifesto": "取食材之鲜，传承经典之肴，细烹淳朴之味，创新闽南之光。\n典雅舒适、独立私密——私厦里经典，一菜一饭一汤。",
-   "heroImages": [
-    "assets/hero/hero1.jpg",
-    "assets/hero/hero2.jpg",
-    "assets/hero/hero3.jpg",
-    "assets/hero/hero4.jpg",
-    "assets/hero/hero5.jpg",
-    "assets/hero/hero6.jpg"
-   ],
    "awards": [
     "CCTV2 中国美食大会推荐菜",
     "米其林必比登推荐",

@@ -117,12 +117,12 @@
     var setUp = function (src) {
       if (k === "brandVideo") {
         var hv = $("heroBgVideo");
+        if (!hv) return;
         hv.muted = true; hv.setAttribute("playsinline", ""); hv.setAttribute("muted", "");
-        $("heroBgVideo").src = src; $("storeVideo2").src = src;
+        hv.src = src; $("storeVideo2") && ($("storeVideo2").src = src);
         tryHeroPlay(hv);
         hv.addEventListener("canplay", function () { tryHeroPlay(hv); });
         var bp = $("svBrandPreview"); if (bp) bp.src = src;
-        var hsl = $("heroSlides"); if (hsl) hsl.hidden = true;
       } else {
         var pv = $("parkingVideo");
         pv.onerror = function () { if (!pv.dataset.fb) { pv.dataset.fb = 1; pv.src = localSrc; } };
@@ -137,11 +137,11 @@
   }
   function loadSiteMedia() {
     ["brandVideo", "parkingVideo"].forEach(applyMedia);
-    /* 无品牌视频时:2.6秒后自动收起开屏(图片轮播主视觉) */
+    /* 主视觉为纯设计方案(无视频):开屏 2.4 秒自动收起 */
     setTimeout(function () {
       var hv = $("heroBgVideo");
-      if (hv && !hv.currentSrc) dismissSplash();
-    }, 2600);
+      if (!hv || !hv.currentSrc) dismissSplash();
+    }, 2400);
     if (!window.indexedDB) return;
     ["brandVideo", "parkingVideo"].forEach(function (k) {
       idbGet(k).then(function (blob) {
@@ -262,14 +262,6 @@
     var ex = D.store.extras || {};
     $("parkingSteps").innerHTML = (ex.parkingSteps || []).map(function (s) { return "<li>" + s + "</li>"; }).join("");
 
-    /* 图片主视觉轮播(无品牌视频时的主画面) */
-    var heroImgs = ex.heroImages || [];
-    var hs = $("heroSlides");
-    if (hs) {
-      hs.innerHTML = heroImgs.map(function (p, i) {
-        return '<div class="slide" style="background-image:url(' + p + ');animation-delay:' + (-i * 5) + "s," + (-i * 5) + 's"></div>';
-      }).join("");
-    }
     var awards = ex.awards || [];
     var haw = $("heroAwards");
     if (haw) haw.innerHTML = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
