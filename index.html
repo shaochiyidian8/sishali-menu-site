@@ -29,6 +29,7 @@
       </svg>
       <div class="hero-char" aria-hidden="true">私</div>
       <div class="hero-brick" aria-hidden="true"></div>
+      <canvas id="heroParticles" class="hero-particles"></canvas>
       <div class="hero-verse" aria-hidden="true">取食材之鲜 · 传承经典之肴</div>
       <div class="splash" id="splash">
         <p class="kicker">SI SHA LI · NEW MINNAN</p>
@@ -49,7 +50,25 @@
       </div>
     </div>
 
-    <div class="honor-marquee" aria-hidden="false"><div class="hm-track" id="honorTrack"><span>CCTV2 中国美食大会推荐菜</span><span>米其林必比登推荐</span><span>2022 厦门餐饮十大名菜</span><span>2023 新闽菜名菜</span><span>鼓浪屿世遗文化宴席代表菜</span><span>闽味非遗</span></div></div>
+    <div class="honor-marquee honor-a"><span class="flank">◆</span><div class="a-items"><span>CCTV2 中国美食大会推荐菜</span><span>米其林必比登推荐</span><span>2022 厦门餐饮十大名菜</span><span>2023 新闽菜名菜</span><span>鼓浪屿世遗文化宴席代表菜</span><span>闽味非遗</span></div><span class="flank">◆</span></div>
+
+
+    <section class="stats-band rv">
+      <div class="stat-g"><b data-count="74">0</b><span>道菜</span></div><i>◆</i>
+      <div class="stat-g"><b data-count="8">0</b><span>大篇章</span></div><i>◆</i>
+      <div class="stat-g"><b data-count="6">0</b><span>项荣誉</span></div><i>◆</i>
+      <div class="stat-g"><b class="no-count">一菜一饭一汤</b><span>私厦里经典</span></div>
+    </section>
+
+    <section class="laurels rv">
+      <div class="ch-label"><i>LAURELS</i><b>荣誉</b></div>
+      <div class="laurels-grid">
+        <figure class="gimg-w"><img loading="lazy" src="assets/dishes/photo/hailijian.jpg" alt="鲜酥海蛎煎获奖"><figcaption><b>鲜酥海蛎煎</b><span>CCTV2 推荐 · 闽味非遗 · 米其林必比登</span></figcaption></figure>
+        <figure class="gimg-w"><img loading="lazy" src="assets/dishes/photo/jiangmuya.jpg" alt="姜母鸭获奖"><figcaption><b>私厦焖鲍姜母鸭</b><span>2022 厦门餐饮十大名菜</span></figcaption></figure>
+        <figure class="gimg-w"><img loading="lazy" src="assets/dishes/photo/chaofan.jpg" alt="炒饭获奖"><figcaption><b>松露海皇炒饭</b><span>2020「亚明杯」创意菜点奖</span></figcaption></figure>
+        <figure class="gimg-w"><img loading="lazy" src="assets/dishes/photo/dongxingban.jpg" alt="东星斑"><figcaption><b>堂灼东星斑</b><span>招牌必点 · 每日限供</span></figcaption></figure>
+      </div>
+    </section>
 
     <div class="manifesto rv">
       <p class="mf-big" id="mfSlogan"></p>
@@ -89,6 +108,12 @@
           </a>
         </div>
       </div>
+    </section>
+
+
+    <section class="dish-marquee rv">
+      <div class="ch-label"><i>THE TABLE</i><b>席上风景</b></div>
+      <div class="dm-viewport"><div class="dm-track"><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s01.jpg" alt="私厦焖鲍姜母鸭"><figcaption>私厦焖鲍姜母鸭</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s02.jpg" alt="堂灼东星斑"><figcaption>堂灼东星斑</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s03.jpg" alt="松露海皇炒饭"><figcaption>松露海皇炒饭</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s26.jpg" alt="鲜酥海蛎煎"><figcaption>鲜酥海蛎煎</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s15.jpg" alt="干捞鸡丝螺片"><figcaption>干捞鸡丝螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s21.jpg" alt="粉丝蒸大扇贝"><figcaption>粉丝蒸大扇贝</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s28.jpg" alt="芦笋百合炒螺片"><figcaption>芦笋百合炒螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s31.jpg" alt="雪花牛肉"><figcaption>雪花牛肉</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s36.jpg" alt="山海猪手烩螺片"><figcaption>山海猪手烩螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s40.jpg" alt="香酥紫菜虾排"><figcaption>香酥紫菜虾排</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s48.jpg" alt="虾汤煮松叶蟹"><figcaption>虾汤煮松叶蟹</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s57.jpg" alt="沙茶焗大虾"><figcaption>沙茶焗大虾</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s01.jpg" alt="私厦焖鲍姜母鸭"><figcaption>私厦焖鲍姜母鸭</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s02.jpg" alt="堂灼东星斑"><figcaption>堂灼东星斑</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s03.jpg" alt="松露海皇炒饭"><figcaption>松露海皇炒饭</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s26.jpg" alt="鲜酥海蛎煎"><figcaption>鲜酥海蛎煎</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s15.jpg" alt="干捞鸡丝螺片"><figcaption>干捞鸡丝螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s21.jpg" alt="粉丝蒸大扇贝"><figcaption>粉丝蒸大扇贝</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s28.jpg" alt="芦笋百合炒螺片"><figcaption>芦笋百合炒螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s31.jpg" alt="雪花牛肉"><figcaption>雪花牛肉</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s36.jpg" alt="山海猪手烩螺片"><figcaption>山海猪手烩螺片</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s40.jpg" alt="香酥紫菜虾排"><figcaption>香酥紫菜虾排</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s48.jpg" alt="虾汤煮松叶蟹"><figcaption>虾汤煮松叶蟹</figcaption></figure><figure><img loading="lazy" class="gimg" src="assets/dishes/photo/s57.jpg" alt="沙茶焗大虾"><figcaption>沙茶焗大虾</figcaption></figure></div></div>
     </section>
 
     <div class="chapters">

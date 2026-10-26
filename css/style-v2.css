@@ -534,16 +534,6 @@ textarea { width: 100%; resize: vertical; }
   color: rgba(236, 229, 211, .8); font-size: 12px; letter-spacing: 2px;
 }
 
-/* ---------- 首页荣誉跑马灯 ---------- */
-.honor-marquee { min-height: 40px; overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .18); border-bottom: 1px solid rgba(201, 162, 75, .18); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
-.honor-marquee::before, .honor-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 70px; z-index: 2; pointer-events: none; }
-.honor-marquee::before { left: 0; background: linear-gradient(90deg, #171310, transparent); }
-.honor-marquee::after { right: 0; background: linear-gradient(-90deg, #171310, transparent); }
-.hm-track { display: inline-flex; white-space: nowrap; animation: hmScroll 36s linear infinite; will-change: transform; }
-.hm-track span { color: #c9a24b; font-size: 12.5px; letter-spacing: 4px; padding: 0 26px; position: relative; }
-.hm-track span::after { content: "◆"; position: absolute; right: -7px; font-size: 7px; color: #a8322a; top: 50%; transform: translateY(-50%); }
-@keyframes hmScroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@media (prefers-reduced-motion: reduce) { .hm-track { animation: none; } }
 
 /* ---------- 镇店三绝(米白宣纸底亮色区块) ---------- */
 .trio-feature { background: radial-gradient(130% 100% at 20% 0%, #f6efe0 0%, #f2ead9 55%, #ece1cb 100%); color: #2a2016; padding: 74px 26px 84px; margin-top: 0; position: relative; }
@@ -572,3 +562,44 @@ textarea { width: 100%; resize: vertical; }
   .trio-feature { padding: 54px 16px 62px; }
   .trio-feature::before { left: 12px; right: 12px; }
 }
+
+/* ---------- A版正式包:荣誉带(方案A)/粒子/数据带/荣誉卡/菜品图墙/调色/颗粒 ---------- */
+.honor-a { display: flex; align-items: center; justify-content: center; min-height: 46px; }
+.honor-a .flank { color: rgba(168,50,42,.85); font-size: 8px; margin: 0 18px; flex: none; }
+.honor-a .a-items { position: relative; height: 22px; width: 100%; max-width: 460px; }
+.honor-a .a-items span { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; color: #c9a24b; font-size: 13px; letter-spacing: 4px; opacity: 0; animation: aFade 21s infinite; white-space: nowrap; }
+.honor-a .a-items span:nth-child(2){animation-delay:3.5s}.honor-a .a-items span:nth-child(3){animation-delay:7s}.honor-a .a-items span:nth-child(4){animation-delay:10.5s}.honor-a .a-items span:nth-child(5){animation-delay:14s}.honor-a .a-items span:nth-child(6){animation-delay:17.5s}
+@keyframes aFade { 0% { opacity: 0; transform: translateY(7px); } 2.5% { opacity: 1; transform: translateY(0); } 13.5% { opacity: 1; transform: translateY(0); } 16.5% { opacity: 0; transform: translateY(-7px); } 100% { opacity: 0; transform: translateY(7px); } }
+.hero-particles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; }
+.hero-text > * { opacity: 0; animation: heroUp .8s cubic-bezier(.2,.7,.2,1) forwards; }
+.hero-text > *:nth-child(1){animation-delay:.25s}.hero-text > *:nth-child(2){animation-delay:.42s}
+.hero-text > *:nth-child(3){animation-delay:.58s}.hero-text > *:nth-child(4){animation-delay:.72s}
+.hero-text > *:nth-child(5){animation-delay:.84s}.hero-text > *:nth-child(6){animation-delay:.95s}
+.hero-text > *:nth-child(7){animation-delay:1.1s}.hero-text > *:nth-child(8){animation-delay:1.3s}
+@keyframes heroUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: none; } }
+.stats-band { display: flex; align-items: center; justify-content: center; gap: 22px; padding: 34px 16px 30px; flex-wrap: wrap; }
+.stats-band b { display: block; font-family: var(--serif); font-size: clamp(30px,6vw,44px); color: #c9a24b; font-weight: 400; letter-spacing: 2px; }
+.stats-band b.no-count { font-size: clamp(18px,3.6vw,26px); line-height: 2.1; }
+.stats-band span { font-size: 11px; color: #9a927b; letter-spacing: 3px; }
+.stats-band i { color: rgba(168,50,42,.8); font-size: 8px; font-style: normal; }
+.laurels { padding: 26px 26px 10px; max-width: 1040px; margin: 0 auto; }
+.laurels-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 16px; }
+.laurels-grid figure { margin: 0; border: 1px solid rgba(201,162,75,.28); background: #1d1712; }
+.laurels-grid img { width: 100%; aspect-ratio: 3/3.4; object-fit: cover; display: block; }
+.laurels-grid figcaption { padding: 12px 14px 14px; }
+.laurels-grid b { display: block; font-family: var(--serif); font-size: 15.5px; color: #f2ead9; letter-spacing: 2px; font-weight: 400; }
+.laurels-grid span { font-size: 11.5px; color: #9a927b; letter-spacing: 1.5px; }
+.dish-marquee { padding: 50px 0 34px; overflow: hidden; }
+.dm-viewport { overflow: hidden; -webkit-mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+.dm-track { display: flex; gap: 14px; width: max-content; animation: dmScroll 46s linear infinite; }
+.dm-viewport:hover .dm-track { animation-play-state: paused; }
+.dm-track figure { flex: none; width: 200px; margin: 0; border: 1px solid rgba(201,162,75,.25); background: #1d1712; }
+.dm-track img { width: 100%; aspect-ratio: 1/1.05; object-fit: cover; display: block; }
+.dm-track figcaption { font-size: 12px; color: #d8cfb4; letter-spacing: 2px; text-align: center; padding: 9px 6px 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@keyframes dmScroll { to { transform: translateX(-50%); } }
+.gimg, .laurels-grid img, .dm-track img, .chapter img, .vg-track img, .visit-gallery img, .loc-gallery img, .home-strip img, .trio-img img { filter: saturate(.9) contrast(1.06) brightness(.95) sepia(.1); transition: filter .5s ease, transform .6s ease; }
+.chapter:hover img, .laurels-grid figure:hover img, .dm-track figure:hover img { filter: saturate(1.08) contrast(1.04) brightness(1) sepia(.04); }
+.manifesto .mf-big { font-size: clamp(26px, 5.2vw, 42px) !important; }
+body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 99; opacity: .05; mix-blend-mode: overlay; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E"); }
+.footer .ft-brand { font-size: 38px; letter-spacing: 12px; }
+@media (prefers-reduced-motion: reduce) { .hero-text>*{animation:none;opacity:1} .dm-track,.honor-a .a-items span{animation:none} .honor-a .a-items span:first-child{opacity:1} }

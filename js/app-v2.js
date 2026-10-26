@@ -265,11 +265,6 @@
     var awards = ex.awards || [];
     var haw = $("heroAwards");
     if (haw) haw.innerHTML = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
-    var htrack = $("honorTrack");
-    if (htrack && awards.length) {
-      var seq2 = awards.map(function (a) { return "<span>" + esc(a) + "</span>"; }).join("");
-      htrack.innerHTML = seq2 + seq2;
-    }
 
     function gallery(el, list, label) {
       var one = list.map(function (src, i) {
@@ -1498,4 +1493,40 @@
   renderCartBar();
   if (!window.location.hash) window.location.hash = "#/home";
   renderView();
+})();
+
+/* A版:主视觉粒子 + 数据带数字滚动 */
+(function () {
+  var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = document.getElementById("heroParticles");
+  if (cv && cv.getContext && !reduce) {
+    var ctx = cv.getContext("2d"), W, H, ps = [];
+    function size() { W = cv.width = cv.offsetWidth; H = cv.height = cv.offsetHeight; }
+    size(); addEventListener("resize", size);
+    for (var i = 0; i < 34; i++) ps.push({ x: Math.random(), y: Math.random(), r: .6 + Math.random() * 1.6, s: .06 + Math.random() * .14, ph: Math.random() * 6.28, a: .08 + Math.random() * .3 });
+    (function tick(t) {
+      if (!document.hidden) {
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < ps.length; i++) {
+          var p = ps[i]; p.y -= p.s / 60;
+          if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+          var x = (p.x + Math.sin(t / 2400 + p.ph) * 0.012) * W, y = p.y * H;
+          ctx.beginPath(); ctx.arc(x, y, p.r, 0, 6.283);
+          ctx.fillStyle = "rgba(201,162,75," + (p.a * (0.6 + 0.4 * Math.sin(t / 1300 + p.ph))) + ")"; ctx.fill();
+        }
+      }
+      requestAnimationFrame(tick);
+    })(0);
+  }
+  var els = document.querySelectorAll(".stats-band b[data-count]");
+  if (!els.length) return;
+  if (!("IntersectionObserver" in window)) { els.forEach(function (b) { b.textContent = b.dataset.count; }); return; }
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) {
+      if (!e.isIntersecting) return; io.unobserve(e.target);
+      var b = e.target, n = +b.dataset.count, t0 = null;
+      (function step(ts) { if (!t0) t0 = ts; var k = Math.min((ts - t0) / 1200, 1); b.textContent = Math.round(n * (1 - Math.pow(1 - k, 3))); if (k < 1) requestAnimationFrame(step); })(performance.now());
+    });
+  }, { threshold: .6 });
+  els.forEach(function (b) { io.observe(b); });
 })();

@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>私厦里 SI SHA LI · 新闽南 大悦城店 — 席卷</title>
+<style>
+  :root {
+    --ink: #0f0c09; --ink2: #171310; --cream: #f2ead9; --gold: #c9a24b; --red: #a8322a; --muted: #9a927b;
+    --serif: "Songti SC", "STSong", "SimSun", serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "PingFang SC", "Microsoft YaHei", sans-serif; background: var(--ink); color: var(--cream); overflow-x: hidden; }
+  img { filter: saturate(.88) contrast(1.08) brightness(.94) sepia(.12); }
+  .ov { overflow: hidden; }
+
+  /* ============ 开场满屏 ============ */
+  .hero { position: relative; min-height: 100svh; display: grid; grid-template-columns: 46% 54%; }
+  .hero-left { position: relative; background: radial-gradient(120% 100% at 20% 10%, #241c14, var(--ink2) 60%, #0d0a07); display: flex; align-items: center; padding: 8vh 4vw; z-index: 2; }
+  .hero-left::after { content: ""; position: absolute; right: -1px; top: 0; bottom: 0; width: 90px; background: linear-gradient(90deg, transparent, rgba(15,12,9,.9) 55%, var(--ink)); z-index: 3; }
+  .stack { display: flex; flex-direction: column; gap: 1vh; position: relative; z-index: 4; }
+  .stack .ch { font-family: var(--serif); font-size: clamp(74px, 15vh, 148px); line-height: 1.04; letter-spacing: .04em;
+    opacity: 0; transform: translateX(-46px); animation: chIn .9s cubic-bezier(.2,.8,.2,1) forwards; }
+  .stack .ch:nth-child(1) { animation-delay: .15s; }
+  .stack .ch:nth-child(2) { animation-delay: .3s; color: var(--gold); }
+  .stack .ch:nth-child(3) { animation-delay: .45s; }
+  .stack .ch.outline { color: transparent; -webkit-text-stroke: 1.5px rgba(242,234,217,.55); }
+  @keyframes chIn { to { opacity: 1; transform: none; } }
+  .hero-kicker { position: absolute; left: 4vw; top: 7vh; writing-mode: vertical-rl; letter-spacing: 8px; font-size: 10.5px; color: var(--gold); opacity: 0; animation: fadein 1s .9s forwards; }
+  .hero-side { position: absolute; left: 4vw; bottom: 7vh; opacity: 0; animation: fadein 1s 1.05s forwards; }
+  .hero-side p { font-size: 12px; letter-spacing: 4px; color: var(--muted); }
+  .hero-side .cta { display: flex; gap: 12px; margin-top: 14px; }
+  .btn { display: inline-block; text-decoration: none; font-size: 12.5px; letter-spacing: 3px; padding: 11px 22px; border-radius: 2px; }
+  .btn.red { background: var(--red); color: var(--cream); }
+  .btn.line { border: 1px solid rgba(201,162,75,.55); color: var(--gold); }
+  .hero-right { position: relative; overflow: hidden; }
+  .hero-right img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; animation: kb 26s ease-in-out infinite alternate; }
+  @keyframes kb { from { transform: scale(1.02); } to { transform: scale(1.14) translate(-1.5%, 1%); } }
+  .hero-right::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,9,.15), transparent 30%, transparent 62%, rgba(15,12,9,.92)); }
+  .hero-award { position: absolute; right: 4vw; bottom: 7vh; z-index: 4; text-align: right; opacity: 0; animation: fadein 1s 1.2s forwards; }
+  .hero-award b { font-family: var(--serif); font-size: 17px; color: var(--cream); letter-spacing: 3px; font-weight: 400; }
+  .hero-award span { display: block; font-size: 10.5px; color: var(--gold); letter-spacing: 2.5px; margin-top: 6px; }
+  @keyframes fadein { to { opacity: 1; } }
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15,12,9,.66), rgba(15,12,9,.4) 45%, rgba(15,12,9,.95)); z-index: 3; padding: 9vh 8vw 12vh; }
+    .hero-left::after { display: none; }
+    .stack { gap: 4px; }
+    .stack .ch { font-size: clamp(64px, 11.5vh, 108px); }
+    .hero-award { top: 4vh; right: 6vw; bottom: auto; max-width: 46vw; z-index: 5; }
+    .hero-award b { font-size: 14px; }
+    .hero-award span { font-size: 9.5px; letter-spacing: 1.5px; }
+    .hero-kicker { top: 4vh; left: 6vw; }
+    .hero-side { bottom: calc(7vh + 12px); left: 6vw; }
+  }
+
+  /* ============ 朱砂宣言带 ============ */
+  .redband { background: var(--red); padding: 15vh 8vw; position: relative; overflow: hidden; }
+  .redband::before { content: "闽"; position: absolute; right: -4vw; top: 50%; transform: translateY(-50%); font-family: var(--serif); font-size: 42vh; color: rgba(242,234,217,.08); line-height: 1; }
+  .redband .k { font-size: 11px; letter-spacing: 8px; color: rgba(242,234,217,.75); }
+  .redband h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(30px, 6vw, 60px); letter-spacing: .12em; margin-top: 18px; line-height: 1.55; }
+  .redband h2 span { display: block; opacity: 0; transform: translateY(30px); transition: opacity .8s ease, transform .8s ease; }
+  .redband h2 span.in { opacity: 1; transform: none; }
+  .redband h2 em { font-style: normal; color: transparent; -webkit-text-stroke: 1px rgba(242,234,217,.8); }
+
+  /* ============ 一菜一饭一汤 三章 ============ */
+  .chapter-full { position: relative; min-height: 92svh; display: grid; grid-template-columns: 1fr 1fr; }
+  .chapter-full:nth-child(even) { direction: rtl; }
+  .chapter-full > * { direction: ltr; }
+  .cf-media { position: relative; overflow: hidden; }
+  .cf-media img { position: absolute; inset: -12% 0; width: 100%; height: 124%; object-fit: cover; will-change: transform; }
+  .cf-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 60%, rgba(15,12,9,.85)); }
+  .chapter-full:nth-child(even) .cf-media::after { background: linear-gradient(-90deg, transparent 60%, rgba(15,12,9,.85)); }
+  .cf-text { position: relative; display: flex; flex-direction: column; justify-content: center; padding: 10vh 7vw; background: var(--ink); }
+  .cf-num { position: absolute; top: 6vh; right: 5vw; font-family: var(--serif); font-size: clamp(90px, 16vw, 190px); line-height: 1; color: transparent; -webkit-text-stroke: 1px rgba(201,162,75,.3); }
+  .cf-text .k { font-size: 10.5px; letter-spacing: 7px; color: var(--gold); }
+  .cf-text h3 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 5.4vw, 62px); letter-spacing: .1em; margin: 16px 0 14px; }
+  .cf-text p { font-size: 13.5px; color: var(--muted); letter-spacing: 2px; line-height: 2; max-width: 34em; }
+  .cf-price { display: inline-flex; align-items: baseline; gap: 10px; margin-top: 26px; }
+  .cf-price b { font-family: var(--serif); font-size: 30px; color: var(--gold); font-weight: 400; }
+  .cf-price span { font-size: 11px; color: var(--muted); letter-spacing: 2px; }
+  .rvl { opacity: 0; transform: translateY(40px); transition: opacity .9s ease, transform .9s ease; }
+  .rvl.in { opacity: 1; transform: none; }
+  @media (max-width: 820px) {
+    .chapter-full { grid-template-columns: 1fr; }
+    .cf-media { height: 52svh; }
+    .cf-media img { inset: 0; height: 100%; }
+    .cf-text { padding: 7vh 8vw 9vh; }
+  }
+
+  /* ============ 菜单墙(拖拽横滑) ============ */
+  .wall { padding: 12vh 0 10vh; background: linear-gradient(180deg, var(--ink), #131007 50%, var(--ink)); }
+  .wall-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 8vw 26px; }
+  .wall-head h4 { font-family: var(--serif); font-weight: 400; font-size: clamp(24px, 4vw, 40px); letter-spacing: .18em; }
+  .wall-head a { color: var(--gold); font-size: 12px; letter-spacing: 3px; text-decoration: none; border-bottom: 1px dotted rgba(201,162,75,.5); }
+  .wall-track { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 8vw 26px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .wall-track::-webkit-scrollbar { display: none; }
+  .wcard { flex: none; width: min(64vw, 272px); scroll-snap-align: start; background: #1d1712; border: 1px solid rgba(201,162,75,.22); transition: transform .45s ease, border-color .45s ease; }
+  .wcard:hover { transform: translateY(-8px); border-color: rgba(201,162,75,.55); }
+  .wcard img { width: 100%; aspect-ratio: 1/1.02; object-fit: cover; display: block; }
+  .wcard figcaption { padding: 13px 15px 15px; }
+  .wcard b { display: block; font-family: var(--serif); font-weight: 400; font-size: 15.5px; letter-spacing: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wcard span { font-size: 12px; color: var(--gold); letter-spacing: 1.5px; }
+  .wall-progress { margin: 4px 8vw 0; height: 1px; background: rgba(201,162,75,.18); position: relative; }
+  .wall-progress i { position: absolute; left: 0; top: 0; height: 100%; width: 18%; background: var(--gold); transition: left .1s linear; }
+
+  /* ============ 荣誉巨字列表 ============ */
+  .laurels2 { padding: 12vh 8vw; }
+  .laurels2 .k { font-size: 11px; letter-spacing: 8px; color: var(--gold); text-align: center; }
+  .lrow { display: flex; align-items: baseline; gap: 4vw; padding: 26px 6px; border-bottom: 1px solid rgba(201,162,75,.16); transition: padding-left .4s ease, background .4s ease; }
+  .lrow:hover { padding-left: 18px; background: rgba(201,162,75,.04); }
+  .lrow b { font-family: var(--serif); font-weight: 400; font-size: clamp(20px, 3.4vw, 34px); letter-spacing: .08em; flex: 1; }
+  .lrow span { font-size: 11px; color: var(--muted); letter-spacing: 3px; white-space: nowrap; }
+  .lrow i { font-style: normal; color: var(--red); font-size: 12px; }
+
+  /* ============ 结尾满屏 ============ */
+  .finale { min-height: 88svh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; position: relative; background: radial-gradient(100% 80% at 50% 100%, #241c14, var(--ink) 70%); }
+  .finale h2 { font-family: var(--serif); font-weight: 400; font-size: clamp(44px, 10vw, 110px); letter-spacing: .22em; text-indent: .22em; }
+  .finale h2 span { display: inline-block; opacity: 0; transform: translateY(50px) rotate(4deg); transition: all .9s cubic-bezier(.2,.8,.2,1); }
+  .finale h2 span.in { opacity: 1; transform: none; }
+  .finale p { margin-top: 24px; font-size: 13px; color: var(--muted); letter-spacing: 4px; line-height: 2.2; }
+  .finale .cta { margin-top: 30px; display: flex; gap: 14px; }
+  .wall-hint { text-align:center; font-size:11px; color:#6c6552; letter-spacing:2.5px; margin-top:14px; }
+  .lb { position:fixed; inset:0; z-index:200; background:rgba(10,8,6,.94); display:none; align-items:center; justify-content:center; flex-direction:column; gap:16px; padding:7vh 8vw; }
+  .lb.on { display:flex; }
+  .lb img { max-width:min(88vw,560px); max-height:64vh; object-fit:contain; border:1px solid rgba(201,162,75,.4); filter:saturate(.95) contrast(1.05); }
+  .lb b { font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:4px; }
+  .lb span { font-size:12.5px; color:var(--gold); letter-spacing:2px; }
+  .lb .lb-close { position:absolute; top:4vh; right:6vw; font-size:26px; color:var(--cream); cursor:pointer; line-height:1; padding:6px; }
+  .bfoot { text-align: center; font-size: 10.5px; color: #6c6552; letter-spacing: 4px; padding: 26px 0 34px; border-top: 1px solid rgba(201,162,75,.12); }
+</style>
+</head>
+<body>
+
+  <!-- 开场满屏 -->
+  <header class="hero">
+    <div class="hero-left">
+      <p class="hero-kicker">SI SHA LI · NEW MINNAN CUISINE</p>
+      <div class="stack">
+        <div class="ch">私</div>
+        <div class="ch outline">厦</div>
+        <div class="ch">里</div>
+      </div>
+      <div class="hero-side">
+        <p>一菜 · 一饭 · 一汤</p>
+        <div class="cta">
+          <a class="btn red" href="#wall">看菜单</a>
+          <a class="btn line" href="https://shaochiyidian8.github.io/sishali-menu-site/#/reserve">预约包厢</a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <img src="assets/dishes/photo/dongxingban.jpg" alt="五行豆浆堂灼东星斑">
+    </div>
+  </header>
+
+  <!-- 朱砂宣言 -->
+  <section class="redband">
+    <p class="k">MANIFESTO · 新闽南宣言</p>
+    <h2>
+      <span>取食材之鲜，</span>
+      <span><em>创新闽南之光。</em></span>
+      <span>以山海为灶，敬懂它的你。</span>
+    </h2>
+  </section>
+
+  <!-- 一菜一饭一汤 -->
+  <section class="chapter-full">
+    <div class="cf-media"><img data-para src="assets/dishes/photo/s01.jpg" alt="私厦焖鲍姜母鸭"></div>
+    <div class="cf-text">
+      <i class="cf-num">壹</i>
+      <p class="k rvl">ONE DISH · 一菜</p>
+      <h3 class="rvl">私厦焖鲍姜母鸭</h3>
+      <p class="rvl">老砂锅焖足三小时，鎏金浓汤裹住鸭肉的酥。私厦里原创，2022 厦门餐饮十大名菜、2023 新闽菜名菜，销量第一的镇店之味。</p>
+      <div class="cf-price rvl"><b>¥189</b><span>起 / 小份 · 大份堂询</span></div>
+    </div>
+  </section>
+  <section class="chapter-full">
+    <div class="cf-media"><img data-para src="assets/dishes/photo/s02.jpg" alt="五行豆浆堂灼东星斑"></div>
+    <div class="cf-text">
+      <i class="cf-num">貳</i>
+      <p class="k rvl">ONE SOUP · 一汤</p>
+      <h3 class="rvl">五行豆浆堂灼东星斑</h3>
+      <p class="rvl">豆浆一灼，鲜甜立现。每日限供的招牌汤，把东星斑的细嫩托在一盏五行豆浆里——席间最温柔的一道光。</p>
+      <div class="cf-price rvl"><b>时价</b><span>以门店当日价为准</span></div>
+    </div>
+  </section>
+  <section class="chapter-full">
+    <div class="cf-media"><img data-para src="assets/dishes/photo/s03.jpg" alt="松露海皇炒饭"></div>
+    <div class="cf-text">
+      <i class="cf-num">叁</i>
+      <p class="k rvl">ONE MEAL · 一饭</p>
+      <h3 class="rvl">松露海皇炒饭</h3>
+      <p class="rvl">五常稻花香得黑松露清香，粒粒弹牙。2020「亚明杯」全国海鲜创意菜品奖——一勺下去，海陆同席。</p>
+      <div class="cf-price rvl"><b>¥22</b><span>/ 位 · 小份 ¥96 · 大份 ¥126</span></div>
+    </div>
+  </section>
+
+  <!-- 菜单墙 -->
+  <section class="wall" id="wall">
+    <div class="wall-head">
+      <h4>席上风景</h4>
+      <a href="https://shaochiyidian8.github.io/sishali-menu-site/#/menu">进入完整菜单 →</a>
+    </div>
+    <div class="wall-track" id="wallTrack"></div>
+    <div class="wall-progress"><i id="wallBar"></i></div>
+    <p class="wall-hint">点击菜品可放大看图 · 点单请进「进入完整菜单」</p>
+  </section>
+
+  <!-- 荣誉巨字 -->
+  <section class="laurels2">
+    <p class="k">LAURELS · 荣誉</p>
+    <div style="height:22px"></div>
+    <div class="lrow rvl"><i>01</i><b>CCTV2 中国美食大会推荐菜</b><span>鲜酥海蛎煎</span></div>
+    <div class="lrow rvl"><i>02</i><b>米其林必比登推荐</b><span>鲜酥海蛎煎</span></div>
+    <div class="lrow rvl"><i>03</i><b>2022 厦门餐饮十大名菜</b><span>私厦焖鲍姜母鸭</span></div>
+    <div class="lrow rvl"><i>04</i><b>2023 新闽菜名菜</b><span>私厦焖鲍姜母鸭</span></div>
+    <div class="lrow rvl"><i>05</i><b>鼓浪屿世遗文化宴席代表菜</b><span>宴席出品</span></div>
+    <div class="lrow rvl"><i>06</i><b>闽味非遗</b><span>传承风味</span></div>
+  </section>
+
+  <!-- 结尾 -->
+  <section class="finale">
+    <h2 id="finH"><span>恭</span><span>候</span><span>光</span><span>临</span></h2>
+    <p>厦门 · 集美区 · 大悦城 6 楼 2 号电梯口<br>预定台 0592-6093602 · 服务经理晏子 18046213329（微信同号）</p>
+    <div class="cta">
+      <a class="btn red" href="https://shaochiyidian8.github.io/sishali-menu-site/#/menu">开始点单</a>
+      <a class="btn line" href="https://shaochiyidian8.github.io/sishali-menu-site/#/reserve">预约包厢</a>
+    </div>
+  </section>
+  <footer class="bfoot">私厦里 · 新闽南 大悦城店 — SI SHA LI · NEW MINNAN CUISINE</footer>
+
+<script>
+  var dishes = [
+    ["s01","私厦焖鲍姜母鸭","¥189 起"],["s02","堂灼东星斑","时价"],["s03","松露海皇炒饭","¥22/位"],
+    ["s26","鲜酥海蛎煎","¥79 起"],["s15","干捞鸡丝螺片","¥236 起"],["s21","粉丝蒸大扇贝","¥16/粒"],
+    ["s28","芦笋百合炒螺片","¥169 起"],["s29","葱烧南美参","¥369 起"],["s31","雪花牛肉","¥229 起"],
+    ["s36","山海猪手烩螺片","¥169 起"],["s40","香酥紫菜虾排","¥19/件"],["s48","虾汤煮松叶蟹","时价"]
+  ];
+  document.getElementById("wallTrack").innerHTML = dishes.map(function (d) {
+    return '<figure class="wcard"><img loading="lazy" src="assets/dishes/photo/' + d[0] + '.jpg" alt="' + d[1] + '"><figcaption><b>' + d[1] + '</b><span>' + d[2] + '</span></figcaption></figure>';
+  }).join("");
+
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var io = new IntersectionObserver(function (es) {
+    es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+  }, { threshold: .25 });
+  document.querySelectorAll(".rvl, .redband h2 span, #finH span").forEach(function (el) { io.observe(el); });
+
+  var lb = document.createElement("div");
+  lb.className = "lb";
+  lb.innerHTML = '<i class="lb-close">×</i><img alt=""><b></b><span></span>';
+  document.body.appendChild(lb);
+  var lbImg = lb.querySelector("img"), lbB = lb.querySelector("b"), lbS = lb.querySelector("span");
+  lb.addEventListener("click", function (e) { if (e.target === lb || e.target.classList.contains("lb-close")) lb.classList.remove("on"); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") lb.classList.remove("on"); });
+  var wt = document.getElementById("wallTrack"), bar = document.getElementById("wallBar");
+  wt.addEventListener("click", function (e) {
+    var fig = e.target.closest(".wcard");
+    if (!fig) return;
+    lbImg.src = fig.querySelector("img").src;
+    lbB.textContent = fig.querySelector("b").textContent;
+    lbS.textContent = fig.querySelector("span").textContent;
+    lb.classList.add("on");
+  });
+  wt.addEventListener("scroll", function () {
+    var max = wt.scrollWidth - wt.clientWidth;
+    bar.style.left = (max > 0 ? (wt.scrollLeft / max) * 82 : 0) + "%";
+  }, { passive: true });
+
+  if (!reduce) {
+    var paras = document.querySelectorAll("[data-para]");
+    addEventListener("scroll", function () {
+      requestAnimationFrame(function () {
+        paras.forEach(function (img) {
+          var r = img.parentElement.getBoundingClientRect();
+          if (r.bottom < 0 || r.top > innerHeight) return;
+          var k = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+          img.style.transform = "translateY(" + (k * -46) + "px)";
+        });
+      });
+    }, { passive: true });
+  }
+</script>
+</body>
+</html>
