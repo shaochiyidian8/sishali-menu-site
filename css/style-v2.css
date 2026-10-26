@@ -58,7 +58,7 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 .page-sub { color: var(--muted); font-size: 13px; letter-spacing: 2px; margin: 14px 0 0; }
 
 /* ---------- 首页 hero ---------- */
-.hero { position: relative; height: min(88vh, 760px); min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 0; background: radial-gradient(120% 90% at 78% 8%, #241c14 0%, #171310 46%, #100d0a 100%); }
+.hero { position: relative; min-height: min(88vh, 760px); display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 0; box-sizing: border-box; padding: 104px 0 76px; background: radial-gradient(120% 90% at 78% 8%, #241c14 0%, #171310 46%, #100d0a 100%); }
 /* v4 纯设计主视觉:燕尾脊金线 / 巨字留白 / 红砖纹 / 竖排题字 */
 .hero-roof { position: absolute; top: 7%; left: 0; width: 100%; height: clamp(90px, 16vh, 170px); }
 .roof-line { fill: none; stroke: #c9a24b; stroke-width: 2.4; stroke-linecap: round; }
@@ -76,7 +76,7 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
   animation: brickDrift 140s linear infinite; }
 @keyframes brickDrift { to { background-position: 96px 0, 96px 0; } }
 .hero-verse { position: absolute; right: clamp(18px, 4vw, 54px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; letter-spacing: 12px; color: rgba(242, 234, 217, .46); font-size: 13px; padding-right: 14px; border-right: 1px solid rgba(201, 162, 75, .4); }
-@media (max-width: 760px) { .hero-verse { display: none; } }
+@media (max-width: 760px) { .hero-verse { display: none; } .hero { padding: 88px 0 62px; } }
 .hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 13, 10, .1) 0%, rgba(16, 13, 10, .18) 46%, rgba(16, 13, 10, .82) 86%, #171310 100%); }
 .hero-text { position: relative; text-align: center; padding: 0 20px; }
 .hero-text .kicker { letter-spacing: 8px; color: #c9a24b; }
