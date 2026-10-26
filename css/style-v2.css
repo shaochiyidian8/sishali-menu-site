@@ -1,7 +1,7 @@
 /* ============ B 版独立设计系统:叙事式高级餐厅站(Rosa / AstroRante 语言) ============ */
 :root {
-  --bg: #101208;
-  --bg2: #171a10;
+  --bg: #171310;
+  --bg2: #1d1712;
   --panel: #1b1f13;
   --line: #2c3120;
   --gold: #c9a86a;
@@ -58,7 +58,7 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 .page-sub { color: var(--muted); font-size: 13px; letter-spacing: 2px; margin: 14px 0 0; }
 
 /* ---------- 首页 hero ---------- */
-.hero { position: relative; height: min(88vh, 760px); min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: -60px; background: radial-gradient(120% 90% at 78% 8%, #241c14 0%, #171310 46%, #100d0a 100%); }
+.hero { position: relative; height: min(88vh, 760px); min-height: 560px; display: flex; align-items: center; justify-content: center; overflow: hidden; margin-bottom: 0; background: radial-gradient(120% 90% at 78% 8%, #241c14 0%, #171310 46%, #100d0a 100%); }
 /* v4 纯设计主视觉:燕尾脊金线 / 巨字留白 / 红砖纹 / 竖排题字 */
 .hero-roof { position: absolute; top: 7%; left: 0; width: 100%; height: clamp(90px, 16vh, 170px); }
 .roof-line { fill: none; stroke: #c9a24b; stroke-width: 2.4; stroke-linecap: round; }
@@ -77,7 +77,7 @@ h1, h2, h3, .wordmark, .slogan, .mname, .mprice, .addr, .ft-brand { font-family:
 @keyframes brickDrift { to { background-position: 96px 0, 96px 0; } }
 .hero-verse { position: absolute; right: clamp(18px, 4vw, 54px); top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; letter-spacing: 12px; color: rgba(242, 234, 217, .46); font-size: 13px; padding-right: 14px; border-right: 1px solid rgba(201, 162, 75, .4); }
 @media (max-width: 760px) { .hero-verse { display: none; } }
-.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 13, 10, .1) 0%, rgba(16, 13, 10, .18) 46%, rgba(16, 13, 10, .82) 86%, #101208 100%); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16, 13, 10, .1) 0%, rgba(16, 13, 10, .18) 46%, rgba(16, 13, 10, .82) 86%, #171310 100%); }
 .hero-text { position: relative; text-align: center; padding: 0 20px; }
 .hero-text .kicker { letter-spacing: 8px; color: #c9a24b; }
 .hero-text h1 { font-size: clamp(54px, 9vw, 96px); margin: 10px 0 4px; letter-spacing: 26px; text-indent: 26px; font-weight: 400; color: #f2ead9; }
@@ -535,7 +535,7 @@ textarea { width: 100%; resize: vertical; }
 }
 
 /* ---------- 首页荣誉跑马灯 ---------- */
-.honor-marquee { overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .25); border-bottom: 1px solid rgba(201, 162, 75, .25); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
+.honor-marquee { overflow: hidden; border-top: 1px solid rgba(201, 162, 75, .18); border-bottom: 1px solid rgba(201, 162, 75, .18); background: linear-gradient(180deg, #1a1310, #211511 50%, #1a1310); padding: 11px 0; position: relative; }
 .honor-marquee::before, .honor-marquee::after { content: ""; position: absolute; top: 0; bottom: 0; width: 70px; z-index: 2; pointer-events: none; }
 .honor-marquee::before { left: 0; background: linear-gradient(90deg, #171310, transparent); }
 .honor-marquee::after { right: 0; background: linear-gradient(-90deg, #171310, transparent); }
@@ -546,7 +546,7 @@ textarea { width: 100%; resize: vertical; }
 @media (prefers-reduced-motion: reduce) { .hm-track { animation: none; } }
 
 /* ---------- 镇店三绝(米白宣纸底亮色区块) ---------- */
-.trio-feature { background: radial-gradient(130% 100% at 20% 0%, #f6efe0 0%, #f2ead9 55%, #ece1cb 100%); color: #2a2016; padding: 74px 26px 84px; margin-top: -30px; position: relative; }
+.trio-feature { background: radial-gradient(130% 100% at 20% 0%, #f6efe0 0%, #f2ead9 55%, #ece1cb 100%); color: #2a2016; padding: 74px 26px 84px; margin-top: 0; position: relative; }
 .trio-feature::before { content: ""; position: absolute; top: 14px; left: 26px; right: 26px; bottom: 14px; border: 1px solid rgba(168, 50, 42, .16); pointer-events: none; }
 .tf-label { margin-bottom: 34px; }
 .tf-label i { color: #a8322a; }
