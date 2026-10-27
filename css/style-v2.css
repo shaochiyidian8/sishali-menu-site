@@ -261,13 +261,31 @@ textarea { width: 100%; resize: vertical; }
 .cartbar { position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; z-index: 60; display: flex; align-items: center; gap: 16px; background: rgba(13, 15, 8, .96); border: 1px solid rgba(201, 168, 106, .4); color: var(--cream); padding: 8px 12px 8px 20px; border-radius: 0; backdrop-filter: blur(8px); animation: viewIn .3s ease; }
 .table-chip { background: transparent; border: 1px solid rgba(201, 168, 106, .5); color: var(--gold-soft); padding: 4px 12px; font-size: 12px; cursor: pointer; letter-spacing: 1px; }
 .drawer-mask { position: fixed; inset: 0; background: rgba(6, 8, 3, .65); z-index: 70; backdrop-filter: blur(2px); }
-.cart-drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(400px, 94vw); z-index: 71; background: #12150c; border-left: 1px solid var(--line); padding: 22px; overflow-y: auto; animation: viewIn .3s ease; }
-.cart-drawer h3 { letter-spacing: 6px; margin-top: 0; font-weight: 400; }
-.cart-item { display: flex; align-items: center; gap: 8px; padding: 9px 0; border-bottom: 1px dashed var(--line); font-size: 14px; }
-.cart-item .n { flex: 1; }
-.cart-item .p { color: var(--gold); font-family: var(--serif); overflow-wrap: break-word; }
-.cart-item button { border: 1px solid var(--line); background: transparent; color: var(--cream); width: 24px; height: 24px; cursor: pointer; }
-.cart-note { margin-top: 12px; }
+.cart-drawer { position: fixed; right: 0; top: 0; bottom: 0; width: min(420px, 94vw); z-index: 71; background: #14100b; border-left: 1px solid rgba(201, 162, 75, .3); padding: 0 0 22px; overflow-y: auto; animation: viewIn .3s ease; }
+.cart-drawer > h3 { letter-spacing: 8px; font-weight: 400; padding: 20px 22px 12px; border-bottom: 1px solid rgba(201, 168, 106, .18); margin: 0; color: #c9a24b; font-family: var(--serif); }
+#cartItems { padding: 4px 22px 8px; }
+.cart-item { display: flex; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px dashed rgba(201, 168, 106, .16); }
+.ci-img { flex: none; width: 46px; height: 46px; border-radius: 4px; overflow: hidden; border: 1px solid rgba(201, 168, 106, .25); background: #1d1712; }
+.ci-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ci-img .ph { display: flex; width: 100%; height: 100%; align-items: center; justify-content: center; font-style: normal; font-family: var(--serif); color: #c9a24b; font-size: 18px; }
+.ci-main { flex: 1; min-width: 0; }
+.ci-main .n { display: block; font-size: 14.5px; letter-spacing: 1px; overflow-wrap: break-word; }
+.ci-main .n .spec { font-style: normal; font-size: 10.5px; color: #f2ead9; background: #a8322a; padding: 1px 7px; border-radius: 2px; margin-left: 8px; letter-spacing: 1px; vertical-align: 1px; }
+.ci-main small { display: block; color: var(--muted); font-size: 11px; letter-spacing: 1px; margin-top: 4px; }
+.ci-step { display: flex; align-items: center; gap: 9px; }
+.ci-step button { width: 24px; height: 24px; border-radius: 50%; border: 1px solid #a8322a; background: transparent; color: var(--cream); font-size: 14px; line-height: 1; cursor: pointer; }
+.ci-step b { min-width: 16px; text-align: center; font-weight: 400; font-size: 14px; }
+.ci-sum { flex: none; width: 62px; text-align: right; color: #c9a24b; font-family: var(--serif); font-size: 14.5px; }
+.cart-total { display: flex; justify-content: space-between; align-items: baseline; margin-top: 10px; padding: 14px 2px 4px; border-top: 1px solid rgba(201, 168, 106, .3); font-size: 12px; color: var(--muted); letter-spacing: 2px; }
+.cart-total b { font-family: var(--serif); font-size: 24px; color: #c9a24b; font-weight: 400; }
+.cart-drawer .cart-note, .cart-drawer .row, .cart-drawer textarea, .cart-drawer .row-btns, .cart-drawer .pay-pick { margin-left: 22px; margin-right: 22px; }
+.cart-drawer .cart-note { margin-top: 14px; }
+.cart-drawer .row-btns { margin-bottom: 6px; }
+@media (max-width: 720px) {
+  .cart-drawer { left: 0; right: 0; top: auto; bottom: 0; width: 100%; max-height: 80vh; border-left: none; border-top: 1px solid rgba(201, 168, 106, .35); border-radius: 14px 14px 0 0; animation: sheetUp .3s ease; padding-bottom: calc(18px + env(safe-area-inset-bottom)); }
+  .cart-drawer > h3 { padding-top: 16px; }
+}
+@keyframes sheetUp { from { transform: translateY(48px); opacity: .5; } }
 .cart-drawer .row { display: flex; gap: 8px; margin-top: 10px; }
 .cart-drawer .row label { flex: 1; }
 .cart-drawer textarea { margin-top: 12px; }

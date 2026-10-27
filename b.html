@@ -195,6 +195,19 @@
   .lb span { font-size: 12.5px; color: var(--gold); letter-spacing: 2px; }
   .lb .lb-close { position: absolute; top: 4vh; right: 6vw; font-size: 26px; color: var(--cream); cursor: pointer; line-height: 1; padding: 6px; font-style: normal; }
 
+  /* 规格选择弹层 */
+  .sheet { position: fixed; inset: 0; z-index: 150; }
+  .sheet-mask { position: absolute; inset: 0; background: rgba(10,8,6,.7); }
+  .sheet-panel { position: absolute; left: 50%; transform: translateX(-50%); bottom: 0; width: min(100%, 560px); background: #171310; border: 1px solid rgba(201,162,75,.4); border-bottom: none; padding: 20px 6vw calc(22px + env(safe-area-inset-bottom)); animation: sheetUp .28s ease; }
+  @keyframes sheetUp { from { transform: translateX(-50%) translateY(40px); opacity: .5; } }
+  .sheet-panel h4 { font-family: var(--serif); font-weight: 400; letter-spacing: 4px; font-size: 17px; }
+  .sheet-panel .sp { font-size: 11px; color: var(--muted); letter-spacing: 2px; margin: 4px 0 6px; }
+  .sheet-row { display: flex; align-items: center; gap: 12px; padding: 13px 0; border-bottom: 1px solid rgba(201,162,75,.12); }
+  .sheet-row:last-of-type { border-bottom: none; }
+  .sheet-row .n { flex: 1; font-size: 14.5px; letter-spacing: 1px; }
+  .sheet-row .n small { display: block; color: var(--gold); font-size: 12px; margin-top: 4px; font-family: var(--serif); }
+  .sheet-close { display: block; margin: 14px auto 0; }
+  .multibadge { background: var(--red); color: var(--cream); border-radius: 999px; font-size: 10.5px; min-width: 17px; height: 17px; display: inline-flex; align-items: center; justify-content: center; padding: 0 4px; font-weight: 400; }
   .bfoot { text-align: center; font-size: 10.5px; color: #6c6552; letter-spacing: 4px; padding: 26px 0 34px; border-top: 1px solid rgba(201,162,75,.12); }
 
   @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } .stack .ch, .hero-kicker, .hero-side { opacity: 1; transform: none; } }
@@ -373,6 +386,17 @@
 
 </main>
 
+<!-- 规格选择弹层 -->
+<div class="sheet" id="specSheet" hidden>
+  <div class="sheet-mask" id="specMask"></div>
+  <div class="sheet-panel">
+    <h4 id="specName"></h4>
+    <p class="sp">选择分量，加入订单</p>
+    <div id="specRows"></div>
+    <button class="btn line sheet-close" id="specClose">选好了</button>
+  </div>
+</div>
+
 <!-- 底部购物栏(外卖平台式) -->
 <div class="obar" id="obar" hidden>
   <div class="ob-left">
@@ -398,24 +422,37 @@
   function esc(v) { return String(v == null ? "" : v).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var STORE_PHONE = "05926093602";
 
-  /* ---------- 订单状态 ---------- */
+  /* ---------- 订单状态(规格感知: key = id@规格) ---------- */
   var order = {};
   try { order = JSON.parse(localStorage.getItem("sl_b_order") || "{}"); } catch (e) { order = {}; }
   function saveOrder() { try { localStorage.setItem("sl_b_order", JSON.stringify(order)); } catch (e) {} }
   function count() { var n = 0; for (var k in order) n += order[k].qty; return n; }
   function sum() { var s = 0; for (var k in order) s += (order[k].price || 0) * order[k].qty; return s; }
   function hasMp() { for (var k in order) if (!order[k].price) return true; return false; }
-  function chg(id, delta) {
-    if (!order[id]) return;
-    order[id].qty += delta;
-    if (order[id].qty <= 0) delete order[id];
+  function dishById(id) { for (var i = 0; i < D.dishes.length; i++) if (D.dishes[i].id === id) return D.dishes[i]; return null; }
+  function multiSpec(d) { return !!(d.specs && d.specs.length > 1); }
+  function keyOf(d, specLabel) { return d.id + "@" + (specLabel || d.unit || ""); }
+  function qtyOfKey(k) { return order[k] ? order[k].qty : 0; }
+  function addKey(k, d, spec) {
+    order[k] = order[k] || { id: d.id, name: d.name, spec: spec ? spec.label : "", price: spec ? spec.price : d.price, unit: spec ? spec.label : (d.unit || "份"), qty: 0 };
+    order[k].qty++;
     saveOrder(); paint();
+  }
+  function decKey(k) { if (!order[k]) return; order[k].qty--; if (order[k].qty <= 0) delete order[k]; saveOrder(); paint(); }
+  function incKey(k) {
+    if (order[k]) { order[k].qty++; saveOrder(); paint(); return; }
+    var parts = k.split("@");
+    var d = dishById(parts[0]);
+    if (!d) return;
+    var spec = null;
+    if (multiSpec(d)) spec = d.specs.filter(function (x) { return x.label === parts[1]; })[0];
+    addKey(k, d, spec);
   }
   function priceLabel(d) {
     if (d.priceText === "时价") return "时价";
     var t = d.priceText;
     if (d.unit && t.indexOf("/") < 0) t += "/" + d.unit;
-    if (d.specs && d.specs.length > 1) t += " 起";
+    if (multiSpec(d)) t += " 起";
     return t;
   }
 
@@ -457,43 +494,75 @@
     var tags = "";
     if (d.badges && d.badges.length) tags += "<em>" + esc(d.badges[0]) + "</em>";
     if (d.preorder) tags += "<em>提前预定</em>";
-    if (d.specs && d.specs.length > 1) tags += esc(d.specs.map(function (x) { return x.label + "¥" + x.price; }).join(" · "));
-    return '<div class="drow"><div class="dimg">' + (img ? '<img loading="lazy" src="' + img + '" alt="">' : "") + '</div><div class="dmain"><div class="dname">' + esc(d.name) + '</div><div class="dmeta">' + tags + '</div></div><div class="dside"><div class="dprice">' + priceLabel(d) + '</div>' + stepper(d.id) + "</div></div>";
+    if (multiSpec(d)) tags += esc(d.specs.map(function (x) { return x.label + "¥" + x.price; }).join(" · "));
+    return '<div class="drow" data-id="' + d.id + '"><div class="dimg">' + (img ? '<img loading="lazy" src="' + img + '" alt="">' : "") + '</div><div class="dmain"><div class="dname">' + esc(d.name) + '</div><div class="dmeta">' + tags + '</div></div><div class="dside"><div class="dprice">' + priceLabel(d) + '</div><span class="step-zone">' + stepperHtml(d) + "</span></div></div>";
   }
-  function stepper(id) {
-    var q = order[id] ? order[id].qty : 0;
-    if (!q) return '<span class="stepper"><button type="button" data-inc="' + id + '" class="zero">＋</button></span>';
-    return '<span class="stepper"><button type="button" data-dec="' + id + '">−</button><b>' + q + '</b><button type="button" data-inc="' + id + '">＋</button></span>';
+  function stepperHtml(d) {
+    if (multiSpec(d)) {
+      var total = 0;
+      d.specs.forEach(function (x) { total += qtyOfKey(keyOf(d, x.label)); });
+      return '<span class="stepper"><button type="button" class="zero" data-specopen="' + d.id + '" aria-label="选择分量">＋</button>' + (total ? '<span class="multibadge">' + total + "</span>" : "") + "</span>";
+    }
+    var k = keyOf(d), q = qtyOfKey(k);
+    if (!q) return '<span class="stepper"><button type="button" class="zero" data-keyinc="' + k + '">＋</button></span>';
+    return '<span class="stepper"><button type="button" data-keydec="' + k + '">−</button><b>' + q + '</b><button type="button" data-keyinc="' + k + '">＋</button></span>';
   }
+
+  /* ---------- 全局点击 ---------- */
   document.addEventListener("click", function (e) {
-    var inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]");
-    if (inc) { var d1 = dish(inc.getAttribute("data-inc")); if (d1) { order[d1.id] = order[d1.id] || { name: d1.name, price: d1.price, unit: d1.unit }; order[d1.id].qty = (order[d1.id].qty || 0) + 1; saveOrder(); paint(); } }
-    else if (dec) { chg(dec.getAttribute("data-dec"), -1); }
+    var open = e.target.closest("[data-specopen]");
+    if (open) { openSheet(dishById(open.getAttribute("data-specopen"))); return; }
+    var inc = e.target.closest("[data-keyinc]");
+    if (inc) { incKey(inc.getAttribute("data-keyinc")); return; }
+    var dec = e.target.closest("[data-keydec]");
+    if (dec) { decKey(dec.getAttribute("data-keydec")); return; }
     var im = e.target.closest(".dimg img, .wcard img");
     if (im) openLb(im.src, "", "");
   });
-  function dish(id) { for (var i = 0; i < D.dishes.length; i++) if (D.dishes[i].id === id) return D.dishes[i]; return null; }
+
+  /* ---------- 规格弹层 ---------- */
+  var sheetDish = null;
+  function openSheet(d) {
+    if (!d || !multiSpec(d)) return;
+    sheetDish = d;
+    $("specName").textContent = d.name;
+    renderSheet();
+    $("specSheet").hidden = false;
+  }
+  function renderSheet() {
+    if (!sheetDish) return;
+    $("specRows").innerHTML = sheetDish.specs.map(function (x) {
+      var k = keyOf(sheetDish, x.label), q = qtyOfKey(k);
+      return '<div class="sheet-row"><span class="n">' + esc(x.label) + "<small>" + (x.price ? "¥" + x.price : "时价") + "</small></span>" +
+        '<span class="stepper"><button type="button" data-keydec="' + k + '">−</button><b>' + q + '</b><button type="button" data-keyinc="' + k + '">＋</button></span></div>';
+    }).join("");
+  }
+  function closeSheet() { $("specSheet").hidden = true; sheetDish = null; }
+  $("specMask").addEventListener("click", closeSheet);
+  $("specClose").addEventListener("click", closeSheet);
 
   /* ---------- 下单页 ---------- */
+  function lineName(it) { return esc(it.name) + (it.spec ? "（" + esc(it.spec) + "）" : ""); }
   function renderOrder() {
-    var box = $("oItems");
     var keys = Object.keys(order);
-    box.innerHTML = keys.length ? keys.map(function (k) {
+    $("oItems").innerHTML = keys.length ? keys.map(function (k) {
       var it = order[k];
-      return '<div class="oitem"><span class="n">' + esc(it.name) + '</span><span class="stepper"><button type="button" data-dec="' + k + '">−</button><b>' + it.qty + '</b><button type="button" data-inc="' + k + '">＋</button></span><span class="p">' + (it.price ? "¥" + it.price * it.qty : "时价") + "</span></div>";
+      return '<div class="oitem"><span class="n">' + lineName(it) + '</span><span class="stepper"><button type="button" data-keydec="' + k + '">−</button><b>' + it.qty + '</b><button type="button" data-keyinc="' + k + '">＋</button></span><span class="p">' + (it.price ? "¥" + it.price * it.qty : "时价") + "</span></div>";
     }).join("") : '<p style="color:var(--muted);font-size:13px;letter-spacing:2px;padding:14px 0">还没有点菜，先去菜单挑几道吧</p>';
     $("oTotal").textContent = "¥" + sum();
   }
   function orderText() {
     var v = function (id) { return ($(id).value || "").trim(); };
     var lines = ["【私厦里·新闽南 大悦城店】线上点单（先下单·后付款）"];
-    var guest = v("oGuest") || "贵宾";
-    lines.push("称呼：" + guest + (v("oPhone") ? " · " + v("oPhone") : ""));
+    lines.push("称呼：" + (v("oGuest") || "贵宾") + (v("oPhone") ? " · " + v("oPhone") : ""));
     if (v("oRoom")) lines.push("包厢/桌号：" + v("oRoom"));
     if (v("oTime")) lines.push("用餐时间：" + v("oTime"));
     lines.push("――――――――――");
     var i = 0;
-    for (var k in order) { i++; var it = order[k]; lines.push(i + ". " + it.name + " ×" + it.qty + "（" + (it.unit || "份") + "）" + (it.price ? "¥" + it.price * it.qty : "时价")); }
+    for (var k in order) {
+      i++; var it = order[k];
+      lines.push(i + ". " + it.name + (it.spec ? "（" + it.spec + "）" : "") + " ×" + it.qty + "（" + (it.unit || "份") + "）" + (it.price ? "¥" + it.price * it.qty : "时价"));
+    }
     lines.push("――――――――――", "合计：¥" + sum() + (hasMp() ? "（含时价菜，以门店当日价为准）" : ""));
     if (v("oNote")) lines.push("备注：" + v("oNote"));
     lines.push("（先下单后付款，到店支付）");
@@ -540,7 +609,7 @@
   }
   function fallback(t) { var ta = document.createElement("textarea"); ta.value = t; document.body.appendChild(ta); ta.select(); try { document.execCommand("copy"); } catch (e) {} document.body.removeChild(ta); }
 
-  /* ---------- 底部购物栏 ---------- */
+  /* ---------- 底部购物栏 / 刷新 ---------- */
   function paint() {
     var n = count();
     $("cartCount").textContent = n;
@@ -550,12 +619,13 @@
     $("obBadge").textContent = n;
     $("obTotal").textContent = "¥" + sum();
     if (built) {
-      Array.prototype.forEach.call($("menuList").querySelectorAll(".drow"), function (row) {
-        var holder = row.querySelector(".dside");
-        var old = holder.querySelector(".stepper");
-        if (old) old.outerHTML = stepper(row.querySelector("[data-inc],[data-dec]").getAttribute("data-inc") || row.querySelector("[data-dec]").getAttribute("data-dec"));
+      Array.prototype.forEach.call($("menuList").querySelectorAll(".drow[data-id]"), function (row) {
+        var d = dishById(row.getAttribute("data-id"));
+        var zone = row.querySelector(".step-zone");
+        if (d && zone) zone.innerHTML = stepperHtml(d);
       });
     }
+    if (!$("specSheet").hidden && sheetDish) renderSheet();
     if (!$("v-order").hidden) renderOrder();
   }
   $("obGo").addEventListener("click", function () { location.hash = "#/order"; });
@@ -566,7 +636,7 @@
   function openLb(src, b, s) { $("lbImg").src = src; $("lbB").textContent = b; $("lbS").textContent = s; lb.classList.add("on"); }
   $("lbClose").addEventListener("click", function () { lb.classList.remove("on"); });
   lb.addEventListener("click", function (e) { if (e.target === lb) lb.classList.remove("on"); });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape") lb.classList.remove("on"); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") { lb.classList.remove("on"); closeSheet(); } });
 
   /* ---------- 首页动效 ---------- */
   var io = "IntersectionObserver" in window ? new IntersectionObserver(function (es) {

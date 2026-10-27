@@ -61,6 +61,9 @@
       c.uncertain = false;
       return c;
     }));
+    DISHES.forEach(function (d) {
+      if (d.specs && d.specs.length) d.specs = d.specs.map(function (s) { return { unit: s.unit || s.label, price: s.price }; });
+    });
     state.customNextId = nextId;
   }
   buildDishes();
@@ -622,12 +625,20 @@
   }
   function renderCartDrawer() {
     var es = cartEntries();
-    $("cartItems").innerHTML = es.map(function (e) {
-      return '<div class="cart-item"><span class="n">' + e.d.name + "（" + e.unit + "）</span>" +
-        '<button data-dec="' + e.d.id + "@" + e.unit + '">−</button><span>' + e.qty + "</span>" +
-        '<button data-inc="' + e.d.id + "@" + e.unit + '">+</button>' +
-        '<span class="p">' + (e.price === null ? "时价" : "¥" + e.price) + "×" + e.qty + "</span></div>";
-    }).join("") || '<p class="media-caption">还没有选菜。</p>';
+    var n = 0, tot = 0, mp = false;
+    es.forEach(function (e) { n += e.qty; tot += (e.price || 0) * e.qty; if (e.price === null || e.price === undefined) mp = true; });
+    var rows = es.map(function (e) {
+      var im = (e.d.imgs && e.d.imgs[0]) || e.d.img;
+      var thumb = im ? '<img loading="lazy" src="' + im + '" alt="">' : '<i class="ph">' + e.d.name.charAt(0) + "</i>";
+      var multi = e.d.specs && e.d.specs.length > 1;
+      return '<div class="cart-item"><div class="ci-img">' + thumb + '</div><div class="ci-main">' +
+        '<span class="n">' + e.d.name + (multi ? '<i class="spec">' + e.unit + "</i>" : "") + "</span>" +
+        "<small>" + (e.price === null || e.price === undefined ? "时价 / " + e.unit : "¥" + e.price + " / " + e.unit) + "</small></div>" +
+        '<div class="ci-step"><button data-dec="' + e.d.id + "@" + e.unit + '" aria-label="减一份">−</button><b>' + e.qty + '</b><button data-inc="' + e.d.id + "@" + e.unit + '" aria-label="加一份">＋</button></div>' +
+        '<div class="ci-sum">' + (e.price === null || e.price === undefined ? "时价" : "¥" + e.price * e.qty) + "</div></div>";
+    }).join("");
+    $("cartItems").innerHTML = (rows || '<p class="media-caption">还没有选菜，去菜单挑几道吧。</p>') +
+      (es.length ? '<div class="cart-total"><span>共 ' + n + " 道" + (mp ? " · 含时价菜" : "") + '</span><b>¥' + tot + "</b></div>" : "");
     $("staffFields").hidden = state.mode !== "staff";
     $("orderSaveStaff").hidden = state.mode !== "staff";
     $("orderSubmit").hidden = state.mode === "staff";
