@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>私厦里 SI SHA LI · 新闽南 大悦城店 — 席卷</title>
-<script src="js/data.js?v=202610271633"></script>
+<script src="js/data.js?v=202610271946"></script>
 <style>
   :root {
     --ink: #0f0c09; --ink2: #171310; --panel: #1d1712; --cream: #f2ead9;
@@ -587,6 +587,7 @@
     var lines = ["【私厦里·新闽南 大悦城店】新预约", "贵宾：" + (v("rvGuest") || "贵宾") + (v("rvPhone") ? " · " + v("rvPhone") : ""),
       "日期：" + (v("rvDate") || "＿月＿日"), "餐段：" + $("rvSession").value, "时间：" + (v("rvTime") || "18:30"),
       "包厢：" + (v("rvRoom") || "秋分包厢"), "人数：" + (v("rvParty") || "＿") + "位",
+      "餐厅电话：0592-6093602", "餐厅地址：厦门集美区大悦城6楼2号电梯口",
       "若有忌口/过敏/调整请提前告知；私厦里恭候光临！"];
     if (v("rvNote")) lines.splice(1, 0, "备注：" + v("rvNote"));
     return lines.join("\n");
