@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>私厦里 SI SHA LI · 新闽南 大悦城店 — 席卷</title>
+<script src="js/data.js"></script>
 <style>
   :root {
     --ink: #0f0c09; --ink2: #171310; --cream: #f2ead9; --gold: #c9a24b; --red: #a8322a; --muted: #9a927b;
@@ -180,6 +181,8 @@
   .cd-note { display: block; margin: 14px 0 4px; font-size: 11.5px; color: var(--muted); letter-spacing: 2px; }
   .cd-note input { width: 100%; margin-top: 7px; background: #1d1712; border: 1px solid rgba(201,162,75,.3); color: var(--cream); padding: 10px 12px; font-size: 13.5px; border-radius: 2px; }
   .btn.ghost { background: none; border: 1px solid rgba(154,146,123,.5); color: var(--muted); }
+  .cartbar .mp { font-size: 11px; color: #9a927b; }
+  .cd-empty { color: #9a927b; font-size: 13px; letter-spacing: 2px; }
   .bfoot { text-align: center; font-size: 10.5px; color: #6c6552; letter-spacing: 4px; padding: 26px 0 34px; border-top: 1px solid rgba(201,162,75,.12); }
 </style>
 </head>
@@ -388,141 +391,168 @@
   }
 </script>
 
-/* ===== B版完整体系:路由 / 菜单 / 订单 / 预约 ===== */
-(function () {
-  var D = window.SISHALI_DATA || { categories: [], dishes: [], store: {} };
-  var views = { home: document.getElementById("view-home"), menu: document.getElementById("view-menu"), reserve: document.getElementById("view-reserve") };
-  function route() {
-    var h = (location.hash || "#/home").replace(/^#\/?(home)?$/, "home").replace("#/", "");
-    if (h === "wall") { // 兼容旧锚点
-      location.hash = "#/menu"; return;
-    }
-    var v = views[h] ? h : "home";
-    Object.keys(views).forEach(function (k) { views[k].hidden = k !== v; });
-    if (v !== "home") scrollTo(0, 0);
-    if (v === "menu" && !views.menu.dataset.built) buildMenu();
-  }
-  addEventListener("hashchange", route);
 
-  /* ---- 菜单 ---- */
-  var cart = {};
-  function money(n) { return "¥" + n; }
-  function priceHtml(d) {
-    if (d.priceText === "时价") return "时价";
-    return d.priceText.replace("¥", "¥") + (d.unit && d.priceText.indexOf("/" + d.unit) < 0 ? "<small>/" + d.unit + "</small>" : "") + (d.specs && d.specs.length > 1 ? "<small> 起</small>" : "");
+<script>
+(function () {
+  "use strict";
+  var D = window.SISHALI_DATA;
+  if (!D) return;
+  function $(id) { return document.getElementById(id); }
+  function esc(v) { return String(v == null ? "" : v).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* ---------- 路由 ---------- */
+  var views = { home: $("view-home"), menu: $("view-menu"), reserve: $("view-reserve") };
+  var built = false;
+  function render() {
+    var h = location.hash.replace(/^#\/?/, "");
+    var v = views[h] ? h : "home";
+    for (var k in views) views[k].hidden = k !== v;
+    if (v === "menu") { if (!built) buildMenu(); $("cartBar").hidden = cartCount() === 0; }
+    if (v !== "home") window.scrollTo(0, 0);
   }
+  window.addEventListener("hashchange", render);
+
+  /* ---------- 订单状态 ---------- */
+  var order = {};
+  function cartCount() { var n = 0; for (var k in order) n += order[k].qty; return n; }
+  function cartSum() { var s = 0; for (var k in order) s += (order[k].dish.price || 0) * order[k].qty; return s; }
+  function hasMp() { for (var k in order) if (!order[k].dish.price) return true; return false; }
+  function priceLabel(d) {
+    if (d.priceText === "时价") return "时价";
+    var t = d.priceText;
+    if (d.unit && t.indexOf("/") < 0) t += "/" + d.unit;
+    if (d.specs && d.specs.length > 1) t += " 起";
+    return t;
+  }
+
+  /* ---------- 菜单构建 ---------- */
   function buildMenu() {
-    views.menu.dataset.built = "1";
+    built = true;
     var cats = D.categories.filter(function (c) { return c.group === "menu"; });
-    var list = document.getElementById("menuList");
-    var chips = document.getElementById("menuChips");
-    chips.innerHTML = '<a class="on" href="javascript:void 0" data-c="all">全部</a>' + cats.map(function (c) { return '<a href="javascript:void 0" data-c="' + c.id + '">' + c.name + "</a>"; }).join("");
-    chips.addEventListener("click", function (e) {
+    $("menuChips").innerHTML = ['<a href="#all" class="on">全部</a>'].concat(cats.map(function (c) {
+      return '<a href="#' + c.id + '">' + esc(c.name) + "</a>";
+    })).join("");
+    $("menuChips").addEventListener("click", function (e) {
       var a = e.target.closest("a"); if (!a) return;
-      chips.querySelectorAll("a").forEach(function (x) { x.classList.toggle("on", x === a); });
-      var id = a.dataset.c;
-      list.querySelectorAll(".mcat-block").forEach(function (b) { b.hidden = id !== "all" && b.dataset.cat !== id; });
+      e.preventDefault();
+      var id = a.getAttribute("href").slice(1);
+      Array.prototype.forEach.call($("menuChips").querySelectorAll("a"), function (x) { x.classList.toggle("on", x === a); });
+      Array.prototype.forEach.call($("menuList").querySelectorAll("[data-cat]"), function (b) { b.hidden = id !== "all" && b.getAttribute("data-cat") !== id; });
     });
-    list.innerHTML = cats.map(function (c) {
+    $("menuList").innerHTML = cats.map(function (c) {
       var ds = D.dishes.filter(function (d) { return d.category === c.id; });
-      return '<div class="mcat-block" data-cat="' + c.id + '"><div class="mcat"><b>' + c.name + "</b><span>" + ds.length + " 道</span></div>" +
-        ds.map(function (d) {
-          var img = (d.imgs && d.imgs[0]) || d.img;
-          var badge = (d.badges && d.badges.length) ? '<em>' + d.badges[0] + "</em>" : "";
-          var extra = d.specs && d.specs.length > 1 ? " · " + d.specs.map(function (x) { return x.label + money(x.price); }).join(" / ") : "";
-          return '<div class="drow"><div class="dimg">' + (img ? '<img loading="lazy" src="' + img + '" alt="' + d.name + '">' : "") + "</div>" +
-            '<div class="dmain"><div class="dname">' + d.name + '</div><div class="dmeta">' + badge + (d.preorder ? "<em>提前预定</em>" : "") + extra + "</div></div>" +
-            '<div class="dside"><div class="dprice">' + priceHtml(d) + '</div><button class="addbtn" data-add="' + d.id + '">' + (cart[d.id] ? "已加 ×" + cart[d.id].qty : "加入") + "</button></div></div>";
-        }).join("") + "</div>";
+      return '<div data-cat="' + c.id + '"><div class="mcat"><b>' + esc(c.name) + '</b><span>' + ds.length + ' 道</span></div>' + ds.map(dishRow).join("") + "</div>";
     }).join("");
-    list.addEventListener("click", function (e) {
-      var b = e.target.closest("[data-add]"); if (!b) return;
-      var id = b.dataset.add, d = D.dishes.filter(function (x) { return x.id === id; })[0];
+  }
+  function dishRow(d) {
+    var img = (d.imgs && d.imgs[0]) || d.img;
+    var tags = "";
+    if (d.badges && d.badges.length) tags += "<em>" + esc(d.badges[0]) + "</em>";
+    if (d.preorder) tags += "<em>提前预定</em>";
+    if (d.specs && d.specs.length > 1) tags += esc(d.specs.map(function (x) { return x.label + "¥" + x.price; }).join(" · "));
+    var q = order[d.id] ? order[d.id].qty : 0;
+    return '<div class="drow" data-id="' + d.id + '"><div class="dimg">' + (img ? '<img loading="lazy" src="' + img + '" alt="">' : "") + '</div><div class="dmain"><div class="dname">' + esc(d.name) + '</div><div class="dmeta">' + tags + '</div></div><div class="dside"><div class="dprice">' + priceLabel(d) + '</div><button type="button" class="addbtn" data-add="' + d.id + '">' + (q ? "已加 ×" + q : "加入") + "</button></div></div>";
+  }
+
+  $("menuList").addEventListener("click", function (e) {
+    var add = e.target.closest("[data-add]");
+    if (add) {
+      var id = add.getAttribute("data-add");
+      var d = D.dishes.filter(function (x) { return x.id === id; })[0];
       if (!d) return;
-      cart[id] = cart[id] || { d: d, qty: 0 };
-      cart[id].qty++;
-      b.classList.add("on"); b.textContent = "已加 ×" + cart[id].qty;
-      syncCart();
-    });
-    list.addEventListener("click", function (e) {
-      var im = e.target.closest(".dimg img"); if (!im) return;
+      order[id] = order[id] || { dish: d, qty: 0 };
+      order[id].qty++;
+      refresh();
+      return;
+    }
+    var im = e.target.closest(".dimg img");
+    if (im && typeof lb !== "undefined") {
       lbImg.src = im.src; lbB.textContent = ""; lbS.textContent = "";
       lb.classList.add("on");
-    });
-  }
-
-  /* ---- 订单 ----
-  function syncCart() {
-    var n = 0, sum = 0, mj = false;
-    Object.keys(cart).forEach(function (k) { n += cart[k].qty; sum += (cart[k].d.price || 0) * cart[k].qty; if (!cart[k].d.price) mj = true; });
-    document.getElementById("cartCount").textContent = n;
-    var bar = document.getElementById("cartBar");
-    bar.hidden = !n;
-    document.getElementById("cartSummary").innerHTML = n ? "共 <b>" + n + "</b> 道 · 合计 <b>" + money(sum) + "</b>" + (mj ? "<span style='font-size:11px;color:#9a927b'>（含时价菜）</span>" : "") : "";
-  }
-  function drawer(open) { document.getElementById("cDrawer").hidden = !open; }
-  document.getElementById("menuCartBtn").addEventListener("click", function () { drawer(true); renderDrawer(); });
-  document.getElementById("cartOpen").addEventListener("click", function () { drawer(true); renderDrawer(); });
-  document.getElementById("cdMask").addEventListener("click", function () { drawer(false); });
-  document.getElementById("cdClear").addEventListener("click", function () { cart = {}; drawer(false); syncCart(); var ml = document.getElementById("menuList"); if (ml) ml.querySelectorAll(".addbtn").forEach(function (b) { b.classList.remove("on"); b.textContent = "加入"; }); });
-  function renderDrawer() {
-    document.getElementById("cdItems").innerHTML = Object.keys(cart).map(function (k) {
-      var it = cart[k];
-      return '<div class="cd-item"><span class="n">' + it.d.name + "</span>" +
-        '<div class="qty"><button data-m="' + k + '">−</button><b>' + it.qty + "</b><button data-p=\"" + k + '\">＋</button></div>' +
-        '<span class="p">' + (it.d.price ? money(it.d.price * it.qty) : "时价") + "</span></div>";
-    }).join("") || '<p style="color:#9a927b;font-size:13px;letter-spacing:2px">还未选菜</p>';
-  }
-  document.getElementById("cdItems").addEventListener("click", function (e) {
-    var b = e.target.closest("button"); if (!b) return;
-    var k = b.dataset.m || b.dataset.p; if (!k) return;
-    if (b.dataset.m) { cart[k].qty--; if (cart[k].qty <= 0) delete cart[k]; } else cart[k].qty++;
-    renderDrawer(); syncCart(); drawer(true);
-    var ml = document.getElementById("menuList");
-    if (ml) {
-      var btn = ml.querySelector('[data-add="' + k + '"]');
-      if (btn) { if (cart[k]) { btn.classList.add("on"); btn.textContent = "已加 ×" + cart[k].qty; } else { btn.classList.remove("on"); btn.textContent = "加入"; } }
     }
   });
-  document.getElementById("cdGen").addEventListener("click", function () {
-    var ks = Object.keys(cart); if (!ks.length) return;
-    var lines = ["【私厦里·新闽南 大悦城店】席卷页线上点单"];
-    ks.forEach(function (k, i) { var it = cart[k]; lines.push((i + 1) + ". " + it.d.name + " ×" + it.qty + "（" + (it.d.unit || "份") + "）" + (it.d.price ? money(it.d.price * it.qty) : "时价")); });
-    var sum = 0, mj = false; ks.forEach(function (k) { sum += (cart[k].d.price || 0) * cart[k].qty; if (!cart[k].d.price) mj = true; });
-    lines.push("――――――――", "合计：" + money(sum) + (mj ? "（含时价菜，以门店当日价为准）" : ""));
-    var note = document.getElementById("cdNote").value.trim();
+
+  /* ---------- 购物条 / 抽屉 ---------- */
+  function refresh() {
+    var n = cartCount(), sum = cartSum();
+    $("cartCount").textContent = n;
+    $("cartBar").hidden = n === 0;
+    $("cartSummary").innerHTML = n ? "共 <b>" + n + "</b> 道 · 合计 <b>¥" + sum + "</b>" + (hasMp() ? '<span class="mp">（含时价菜）</span>' : "") : "";
+    if (!$("cDrawer").hidden) renderDrawer();
+    Array.prototype.forEach.call($("menuList").querySelectorAll("[data-add]"), function (b) {
+      var it = order[b.getAttribute("data-add")];
+      b.textContent = it ? "已加 ×" + it.qty : "加入";
+      b.classList.toggle("on", !!it);
+    });
+  }
+  function renderDrawer() {
+    var keys = Object.keys(order);
+    $("cdItems").innerHTML = keys.length ? keys.map(function (k) {
+      var it = order[k];
+      return '<div class="cd-item"><span class="n">' + esc(it.dish.name) + '</span><span class="qty"><button type="button" data-dec="' + k + '">−</button><b>' + it.qty + '</b><button type="button" data-inc="' + k + '">＋</button></span><span class="p">' + (it.dish.price ? "¥" + it.dish.price * it.qty : "时价") + "</span></div>";
+    }).join("") : '<p class="cd-empty">还没有选菜</p>';
+  }
+  function openDrawer(open) { $("cDrawer").hidden = !open; if (open) renderDrawer(); }
+  $("menuCartBtn").addEventListener("click", function () { openDrawer(true); });
+  $("cartOpen").addEventListener("click", function () { openDrawer(true); });
+  $("cdMask").addEventListener("click", function () { openDrawer(false); });
+  $("cdClear").addEventListener("click", function () { order = {}; refresh(); openDrawer(false); });
+  $("cdItems").addEventListener("click", function (e) {
+    var inc = e.target.closest("[data-inc]"), dec = e.target.closest("[data-dec]");
+    if (inc) { order[inc.getAttribute("data-inc")].qty++; refresh(); }
+    else if (dec) {
+      var k = dec.getAttribute("data-dec");
+      order[k].qty--;
+      if (order[k].qty <= 0) delete order[k];
+      refresh();
+    }
+  });
+
+  /* ---------- 文本生成 / 复制 ---------- */
+  function bindCopy(btn, ta) {
+    btn.addEventListener("click", function () {
+      ta.select();
+      var done = function () { var t = btn.textContent; btn.textContent = "已复制"; setTimeout(function () { btn.textContent = t; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(ta.value).then(done, function () { try { document.execCommand("copy"); done(); } catch (e2) {} });
+      else { try { document.execCommand("copy"); done(); } catch (e2) {} }
+    });
+  }
+  $("cdGen").addEventListener("click", function () {
+    var keys = Object.keys(order);
+    if (!keys.length) return;
+    var lines = ["【私厦里·新闽南 大悦城店】线上点单", "――――――――――"];
+    keys.forEach(function (k, i) {
+      var it = order[k];
+      lines.push((i + 1) + ". " + it.dish.name + " ×" + it.qty + "（" + (it.dish.unit || "份") + "）" + (it.dish.price ? "¥" + it.dish.price * it.qty : "时价"));
+    });
+    lines.push("――――――――――", "合计：¥" + cartSum() + (hasMp() ? "（含时价菜，以门店当日价为准）" : ""));
+    var note = $("cdNote").value.trim();
     if (note) lines.push("备注：" + note);
-    var out = document.getElementById("cdOut");
-    out.value = lines.join("\n"); out.hidden = false;
-    document.getElementById("cdCopy").hidden = false;
+    $("cdOut").value = lines.join("\n");
+    $("cdOut").hidden = false;
+    $("cdCopy").hidden = false;
   });
-  document.getElementById("cdCopy").addEventListener("click", function () {
-    var t = document.getElementById("cdOut"); t.select();
-    try { document.execCommand("copy"); this.textContent = "已复制"; var b = this; setTimeout(function () { b.textContent = "复制"; }, 1500); } catch (e) {}
-  });
+  bindCopy($("cdCopy"), $("cdOut"));
+  bindCopy($("rvCopy"), $("rvOut"));
 
-  /* ---- 预约 ---- */
-  document.getElementById("rvGen").addEventListener("click", function () {
-    var g = document.getElementById("rvGuest").value.trim() || "贵宾";
-    var lines = ["【私厦里·新闽南 大悦城店】", "尊敬的 " + g + " 贵宾 私厦里为您预留信息如下：",
-      "【预定日期】：" + (document.getElementById("rvDate").value || "＿月＿日"),
-      "【预定餐段】：" + document.getElementById("rvSession").value,
-      "【预定时间】：" + (document.getElementById("rvTime").value || "18:30"),
-      "【预定包厢】：" + (document.getElementById("rvRoom").value || "秋分包厢"),
-      "【用餐人数】：" + (document.getElementById("rvParty").value || "＿") + "位",
-      "【餐厅电话】：0592-6093602", "【餐厅地址】：厦门集美区大悦城6楼2号电梯口", "",
+  $("rvGen").addEventListener("click", function () {
+    var v = function (id) { return $(id).value.trim(); };
+    var lines = ["【私厦里·新闽南 大悦城店】", "尊敬的 " + (v("rvGuest") || "贵宾") + " 贵宾 私厦里为您预留信息如下：",
+      "【预定日期】：" + (v("rvDate") || "＿月＿日"),
+      "【预定餐段】：" + $("rvSession").value,
+      "【预定时间】：" + (v("rvTime") || "18:30"),
+      "【预定包厢】：" + (v("rvRoom") || "秋分包厢"),
+      "【用餐人数】：" + (v("rvParty") || "＿") + "位",
+      "【餐厅电话】：0592-6093602",
+      "【餐厅地址】：厦门集美区大悦城6楼2号电梯口", "",
       "若您有忌口、过敏食材或预订调整请提前告知；", "私厦里全体员工恭候您的光临！"];
-    var out = document.getElementById("rvOut");
-    out.value = lines.join("\n"); out.hidden = false;
-    document.getElementById("rvCopy").hidden = false;
-  });
-  document.getElementById("rvCopy").addEventListener("click", function () {
-    var t = document.getElementById("rvOut"); t.select();
-    try { document.execCommand("copy"); this.textContent = "已复制"; var b = this; setTimeout(function () { b.textContent = "复制"; }, 1500); } catch (e) {}
+    $("rvOut").value = lines.join("\n");
+    $("rvOut").hidden = false;
+    $("rvCopy").hidden = false;
   });
 
-  route();
+  render();
 })();
-
+</script>
 </body>
 </html>
