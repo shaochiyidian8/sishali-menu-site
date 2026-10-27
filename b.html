@@ -128,12 +128,66 @@
   .lb b { font-family:var(--serif); font-weight:400; font-size:19px; letter-spacing:4px; }
   .lb span { font-size:12.5px; color:var(--gold); letter-spacing:2px; }
   .lb .lb-close { position:absolute; top:4vh; right:6vw; font-size:26px; color:var(--cream); cursor:pointer; line-height:1; padding:6px; }
+  /* ===== B版完整体系:视图/菜单/预约/订单 ===== */
+  .bview { min-height: 100svh; }
+  .vhead { position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 16px 6vw; background: rgba(15,12,9,.92); backdrop-filter: blur(8px); border-bottom: 1px solid rgba(201,162,75,.2); }
+  .vhead h2 { font-family: var(--serif); font-weight: 400; font-size: 19px; letter-spacing: 12px; text-indent: 12px; }
+  .vback { color: var(--gold); text-decoration: none; font-size: 13px; letter-spacing: 2px; min-width: 64px; }
+  .vcart-link { color: var(--cream); text-decoration: none; font-size: 12.5px; letter-spacing: 2px; min-width: 64px; text-align: right; }
+  .vcart-link b { background: var(--red); border-radius: 999px; font-size: 11px; padding: 1px 8px; margin-left: 6px; font-weight: 400; }
+  .vph { min-width: 64px; }
+  .mchips { position: sticky; top: 57px; z-index: 40; display: flex; gap: 8px; overflow-x: auto; padding: 14px 6vw; background: rgba(15,12,9,.94); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+  .mchips::-webkit-scrollbar { display: none; }
+  .mchips a { flex: none; font-size: 12.5px; letter-spacing: 3px; color: var(--muted); text-decoration: none; padding: 7px 14px; border: 1px solid rgba(201,162,75,.25); border-radius: 999px; }
+  .mchips a.on { color: var(--ink); background: var(--gold); border-color: var(--gold); }
+  .mlist { padding: 6px 6vw 120px; }
+  .mcat { margin: 34px 0 8px; display: flex; align-items: baseline; gap: 12px; }
+  .mcat b { font-family: var(--serif); font-weight: 400; font-size: 24px; letter-spacing: 8px; }
+  .mcat span { font-size: 10px; color: var(--red); letter-spacing: 2px; }
+  .drow { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid rgba(201,162,75,.12); }
+  .drow .dimg { flex: none; width: 64px; height: 64px; border-radius: 3px; overflow: hidden; border: 1px solid rgba(201,162,75,.25); cursor: zoom-in; background: #1d1712; }
+  .drow .dimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .drow .dmain { flex: 1; min-width: 0; }
+  .drow .dname { font-family: var(--serif); font-size: 16.5px; letter-spacing: 1.5px; overflow-wrap: break-word; }
+  .drow .dmeta { font-size: 11px; color: var(--muted); letter-spacing: 1.5px; margin-top: 5px; }
+  .drow .dmeta em { font-style: normal; color: var(--red); margin-right: 8px; }
+  .drow .dside { text-align: right; flex: none; }
+  .drow .dprice { font-family: var(--serif); color: var(--gold); font-size: 17px; }
+  .drow .dprice small { font-size: 10.5px; color: var(--muted); letter-spacing: 1px; }
+  .addbtn { margin-top: 8px; background: none; border: 1px solid rgba(168,50,42,.8); color: var(--cream); font-size: 11.5px; letter-spacing: 2px; padding: 5px 14px; border-radius: 2px; cursor: pointer; }
+  .addbtn.on { background: var(--red); border-color: var(--red); }
+  .cartbar { position: fixed; left: 4vw; right: 4vw; bottom: calc(14px + env(safe-area-inset-bottom)); z-index: 60; display: flex; align-items: center; justify-content: space-between; gap: 14px; background: rgba(29,23,18,.96); border: 1px solid rgba(201,162,75,.4); border-radius: 4px; padding: 12px 16px; box-shadow: 0 18px 44px -16px rgba(0,0,0,.9); }
+  .cartbar span { font-size: 13px; letter-spacing: 1.5px; }
+  .cartbar b { color: var(--gold); font-family: var(--serif); font-weight: 400; }
+  .rform { max-width: 560px; margin: 0 auto; padding: 30px 6vw 90px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 14px; }
+  .rform label { font-size: 11.5px; color: var(--muted); letter-spacing: 2.5px; display: flex; flex-direction: column; gap: 7px; }
+  .rform label.wide, .rform .rbtns, .rform textarea, .rform .rtel { grid-column: 1 / -1; }
+  .rform input, .rform select { background: #1d1712; border: 1px solid rgba(201,162,75,.3); color: var(--cream); font-size: 14.5px; padding: 11px 12px; border-radius: 2px; letter-spacing: 1px; }
+  .rform input:focus, .rform select:focus { outline: none; border-color: var(--gold); }
+  .rrow { display: contents; }
+  .rbtns { display: flex; gap: 12px; margin-top: 6px; flex-wrap: wrap; }
+  .rform textarea, .cd-panel textarea { grid-column: 1 / -1; background: #14100b; border: 1px solid rgba(201,162,75,.3); color: var(--d8cfb4, #d8cfb4); color: #d8cfb4; padding: 12px; font-size: 12.5px; line-height: 1.9; border-radius: 2px; }
+  .rtel { font-size: 11.5px; color: var(--muted); letter-spacing: 2px; text-align: center; margin-top: 10px; }
+  .cdrawer { position: fixed; inset: 0; z-index: 120; }
+  .cd-mask { position: absolute; inset: 0; background: rgba(10,8,6,.7); }
+  .cd-panel { position: absolute; left: 0; right: 0; bottom: 0; max-height: 78svh; overflow-y: auto; background: #171310; border-top: 1px solid rgba(201,162,75,.4); padding: 22px 6vw calc(26px + env(safe-area-inset-bottom)); }
+  .cd-panel h3 { font-family: var(--serif); font-weight: 400; letter-spacing: 10px; font-size: 18px; margin-bottom: 14px; }
+  .cd-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(201,162,75,.12); }
+  .cd-item .n { flex: 1; font-size: 14px; letter-spacing: 1px; }
+  .cd-item .p { color: var(--gold); font-size: 13.5px; }
+  .qty { display: flex; align-items: center; gap: 10px; }
+  .qty button { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(201,162,75,.5); background: none; color: var(--gold); font-size: 15px; cursor: pointer; line-height: 1; }
+  .cd-note { display: block; margin: 14px 0 4px; font-size: 11.5px; color: var(--muted); letter-spacing: 2px; }
+  .cd-note input { width: 100%; margin-top: 7px; background: #1d1712; border: 1px solid rgba(201,162,75,.3); color: var(--cream); padding: 10px 12px; font-size: 13.5px; border-radius: 2px; }
+  .btn.ghost { background: none; border: 1px solid rgba(154,146,123,.5); color: var(--muted); }
   .bfoot { text-align: center; font-size: 10.5px; color: #6c6552; letter-spacing: 4px; padding: 26px 0 34px; border-top: 1px solid rgba(201,162,75,.12); }
 </style>
 </head>
 <body>
 
-  <!-- 开场满屏 -->
+  <main id="bapp">
+  <!-- ================= 首页视图 ================= -->
+  <section class="bview" id="view-home">
   <header class="hero">
     <div class="hero-left">
       <p class="hero-kicker">SI SHA LI · NEW MINNAN CUISINE</p>
@@ -145,8 +199,8 @@
       <div class="hero-side">
         <p>一菜 · 一饭 · 一汤</p>
         <div class="cta">
-          <a class="btn red" href="#wall">看菜单</a>
-          <a class="btn line" href="https://shaochiyidian8.github.io/sishali-menu-site/#/reserve">预约包厢</a>
+          <a class="btn red" href="#/menu">看菜单 · 点单</a>
+          <a class="btn line" href="#/reserve">预约包厢</a>
         </div>
       </div>
     </div>
@@ -201,11 +255,11 @@
   <section class="wall" id="wall">
     <div class="wall-head">
       <h4>席上风景</h4>
-      <a href="https://shaochiyidian8.github.io/sishali-menu-site/#/menu">进入完整菜单 →</a>
+      <a href="#/menu">进入完整菜单 · 点单 →</a>
     </div>
     <div class="wall-track" id="wallTrack"></div>
     <div class="wall-progress"><i id="wallBar"></i></div>
-    <p class="wall-hint">点击菜品可放大看图 · 点单请进「进入完整菜单」</p>
+    <p class="wall-hint">点击菜品可放大看图 · 完整点单请进「菜单 · 点单」</p>
   </section>
 
   <!-- 荣誉巨字 -->
@@ -225,11 +279,11 @@
     <h2 id="finH"><span>恭</span><span>候</span><span>光</span><span>临</span></h2>
     <p>厦门 · 集美区 · 大悦城 6 楼 2 号电梯口<br>预定台 0592-6093602 · 服务经理晏子 18046213329（微信同号）</p>
     <div class="cta">
-      <a class="btn red" href="https://shaochiyidian8.github.io/sishali-menu-site/#/menu">开始点单</a>
-      <a class="btn line" href="https://shaochiyidian8.github.io/sishali-menu-site/#/reserve">预约包厢</a>
+      <a class="btn red" href="#/menu">开始点单</a>
+      <a class="btn line" href="#/reserve">预约包厢</a>
     </div>
   </section>
-  <footer class="bfoot">私厦里 · 新闽南 大悦城店 — SI SHA LI · NEW MINNAN CUISINE</footer>
+  <footer class="bfoot">私厦里 · 新闽南 大悦城店 — SI SHA LI · NEW MINNAN CUISINE — B 版样板预览</footer>
 
 <script>
   var dishes = [
@@ -283,5 +337,142 @@
     }, { passive: true });
   }
 </script>
+
+/* ===== B版完整体系:路由 / 菜单 / 订单 / 预约 ===== */
+(function () {
+  var D = window.SISHALI_DATA || { categories: [], dishes: [], store: {} };
+  var views = { home: document.getElementById("view-home"), menu: document.getElementById("view-menu"), reserve: document.getElementById("view-reserve") };
+  function route() {
+    var h = (location.hash || "#/home").replace(/^#\/?(home)?$/, "home").replace("#/", "");
+    if (h === "wall") { // 兼容旧锚点
+      location.hash = "#/menu"; return;
+    }
+    var v = views[h] ? h : "home";
+    Object.keys(views).forEach(function (k) { views[k].hidden = k !== v; });
+    if (v !== "home") scrollTo(0, 0);
+    if (v === "menu" && !views.menu.dataset.built) buildMenu();
+  }
+  addEventListener("hashchange", route);
+
+  /* ---- 菜单 ---- */
+  var cart = {};
+  function money(n) { return "¥" + n; }
+  function priceHtml(d) {
+    if (d.priceText === "时价") return "时价";
+    return d.priceText.replace("¥", "¥") + (d.unit && d.priceText.indexOf("/" + d.unit) < 0 ? "<small>/" + d.unit + "</small>" : "") + (d.specs && d.specs.length > 1 ? "<small> 起</small>" : "");
+  }
+  function buildMenu() {
+    views.menu.dataset.built = "1";
+    var cats = D.categories.filter(function (c) { return c.group === "menu"; });
+    var list = document.getElementById("menuList");
+    var chips = document.getElementById("menuChips");
+    chips.innerHTML = '<a class="on" href="javascript:void 0" data-c="all">全部</a>' + cats.map(function (c) { return '<a href="javascript:void 0" data-c="' + c.id + '">' + c.name + "</a>"; }).join("");
+    chips.addEventListener("click", function (e) {
+      var a = e.target.closest("a"); if (!a) return;
+      chips.querySelectorAll("a").forEach(function (x) { x.classList.toggle("on", x === a); });
+      var id = a.dataset.c;
+      list.querySelectorAll(".mcat-block").forEach(function (b) { b.hidden = id !== "all" && b.dataset.cat !== id; });
+    });
+    list.innerHTML = cats.map(function (c) {
+      var ds = D.dishes.filter(function (d) { return d.category === c.id; });
+      return '<div class="mcat-block" data-cat="' + c.id + '"><div class="mcat"><b>' + c.name + "</b><span>" + ds.length + " 道</span></div>" +
+        ds.map(function (d) {
+          var img = (d.imgs && d.imgs[0]) || d.img;
+          var badge = (d.badges && d.badges.length) ? '<em>' + d.badges[0] + "</em>" : "";
+          var extra = d.specs && d.specs.length > 1 ? " · " + d.specs.map(function (x) { return x.label + money(x.price); }).join(" / ") : "";
+          return '<div class="drow"><div class="dimg">' + (img ? '<img loading="lazy" src="' + img + '" alt="' + d.name + '">' : "") + "</div>" +
+            '<div class="dmain"><div class="dname">' + d.name + '</div><div class="dmeta">' + badge + (d.preorder ? "<em>提前预定</em>" : "") + extra + "</div></div>" +
+            '<div class="dside"><div class="dprice">' + priceHtml(d) + '</div><button class="addbtn" data-add="' + d.id + '">' + (cart[d.id] ? "已加 ×" + cart[d.id].qty : "加入") + "</button></div></div>";
+        }).join("") + "</div>";
+    }).join("");
+    list.addEventListener("click", function (e) {
+      var b = e.target.closest("[data-add]"); if (!b) return;
+      var id = b.dataset.add, d = D.dishes.filter(function (x) { return x.id === id; })[0];
+      if (!d) return;
+      cart[id] = cart[id] || { d: d, qty: 0 };
+      cart[id].qty++;
+      b.classList.add("on"); b.textContent = "已加 ×" + cart[id].qty;
+      syncCart();
+    });
+    list.addEventListener("click", function (e) {
+      var im = e.target.closest(".dimg img"); if (!im) return;
+      lbImg.src = im.src; lbB.textContent = ""; lbS.textContent = "";
+      lb.classList.add("on");
+    });
+  }
+
+  /* ---- 订单 ----
+  function syncCart() {
+    var n = 0, sum = 0, mj = false;
+    Object.keys(cart).forEach(function (k) { n += cart[k].qty; sum += (cart[k].d.price || 0) * cart[k].qty; if (!cart[k].d.price) mj = true; });
+    document.getElementById("cartCount").textContent = n;
+    var bar = document.getElementById("cartBar");
+    bar.hidden = !n;
+    document.getElementById("cartSummary").innerHTML = n ? "共 <b>" + n + "</b> 道 · 合计 <b>" + money(sum) + "</b>" + (mj ? "<span style='font-size:11px;color:#9a927b'>（含时价菜）</span>" : "") : "";
+  }
+  function drawer(open) { document.getElementById("cDrawer").hidden = !open; }
+  document.getElementById("menuCartBtn").addEventListener("click", function () { drawer(true); renderDrawer(); });
+  document.getElementById("cartOpen").addEventListener("click", function () { drawer(true); renderDrawer(); });
+  document.getElementById("cdMask").addEventListener("click", function () { drawer(false); });
+  document.getElementById("cdClear").addEventListener("click", function () { cart = {}; drawer(false); syncCart(); var ml = document.getElementById("menuList"); if (ml) ml.querySelectorAll(".addbtn").forEach(function (b) { b.classList.remove("on"); b.textContent = "加入"; }); });
+  function renderDrawer() {
+    document.getElementById("cdItems").innerHTML = Object.keys(cart).map(function (k) {
+      var it = cart[k];
+      return '<div class="cd-item"><span class="n">' + it.d.name + "</span>" +
+        '<div class="qty"><button data-m="' + k + '">−</button><b>' + it.qty + "</b><button data-p=\"" + k + '\">＋</button></div>' +
+        '<span class="p">' + (it.d.price ? money(it.d.price * it.qty) : "时价") + "</span></div>";
+    }).join("") || '<p style="color:#9a927b;font-size:13px;letter-spacing:2px">还未选菜</p>';
+  }
+  document.getElementById("cdItems").addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    var k = b.dataset.m || b.dataset.p; if (!k) return;
+    if (b.dataset.m) { cart[k].qty--; if (cart[k].qty <= 0) delete cart[k]; } else cart[k].qty++;
+    renderDrawer(); syncCart(); drawer(true);
+    var ml = document.getElementById("menuList");
+    if (ml) {
+      var btn = ml.querySelector('[data-add="' + k + '"]');
+      if (btn) { if (cart[k]) { btn.classList.add("on"); btn.textContent = "已加 ×" + cart[k].qty; } else { btn.classList.remove("on"); btn.textContent = "加入"; } }
+    }
+  });
+  document.getElementById("cdGen").addEventListener("click", function () {
+    var ks = Object.keys(cart); if (!ks.length) return;
+    var lines = ["【私厦里·新闽南 大悦城店】席卷页线上点单"];
+    ks.forEach(function (k, i) { var it = cart[k]; lines.push((i + 1) + ". " + it.d.name + " ×" + it.qty + "（" + (it.d.unit || "份") + "）" + (it.d.price ? money(it.d.price * it.qty) : "时价")); });
+    var sum = 0, mj = false; ks.forEach(function (k) { sum += (cart[k].d.price || 0) * cart[k].qty; if (!cart[k].d.price) mj = true; });
+    lines.push("――――――――", "合计：" + money(sum) + (mj ? "（含时价菜，以门店当日价为准）" : ""));
+    var note = document.getElementById("cdNote").value.trim();
+    if (note) lines.push("备注：" + note);
+    var out = document.getElementById("cdOut");
+    out.value = lines.join("\n"); out.hidden = false;
+    document.getElementById("cdCopy").hidden = false;
+  });
+  document.getElementById("cdCopy").addEventListener("click", function () {
+    var t = document.getElementById("cdOut"); t.select();
+    try { document.execCommand("copy"); this.textContent = "已复制"; var b = this; setTimeout(function () { b.textContent = "复制"; }, 1500); } catch (e) {}
+  });
+
+  /* ---- 预约 ---- */
+  document.getElementById("rvGen").addEventListener("click", function () {
+    var g = document.getElementById("rvGuest").value.trim() || "贵宾";
+    var lines = ["【私厦里·新闽南 大悦城店】", "尊敬的 " + g + " 贵宾 私厦里为您预留信息如下：",
+      "【预定日期】：" + (document.getElementById("rvDate").value || "＿月＿日"),
+      "【预定餐段】：" + document.getElementById("rvSession").value,
+      "【预定时间】：" + (document.getElementById("rvTime").value || "18:30"),
+      "【预定包厢】：" + (document.getElementById("rvRoom").value || "秋分包厢"),
+      "【用餐人数】：" + (document.getElementById("rvParty").value || "＿") + "位",
+      "【餐厅电话】：0592-6093602", "【餐厅地址】：厦门集美区大悦城6楼2号电梯口", "",
+      "若您有忌口、过敏食材或预订调整请提前告知；", "私厦里全体员工恭候您的光临！"];
+    var out = document.getElementById("rvOut");
+    out.value = lines.join("\n"); out.hidden = false;
+    document.getElementById("rvCopy").hidden = false;
+  });
+  document.getElementById("rvCopy").addEventListener("click", function () {
+    var t = document.getElementById("rvOut"); t.select();
+    try { document.execCommand("copy"); this.textContent = "已复制"; var b = this; setTimeout(function () { b.textContent = "复制"; }, 1500); } catch (e) {}
+  });
+
+  route();
+})();
+
 </body>
 </html>
