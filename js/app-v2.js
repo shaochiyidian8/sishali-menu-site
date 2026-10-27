@@ -621,7 +621,10 @@
     var es = cartEntries(), n = es.reduce(function (s, e) { return s + e.qty; }, 0);
     $("cartBar").hidden = n === 0 || !$("cartDrawer").hidden;
     $("tableChip").textContent = state.table ? "桌号 " + state.table : "选桌号";
-    if (n > 0) $("cartSummary").textContent = "已选 " + n + " 件 · ¥" + cartTotal() + "起";
+    var mp = es.some(function (e) { return e.price === null || e.price === undefined; });
+    $("cbBadge").textContent = n;
+    $("cbTotal").textContent = "¥" + cartTotal() + (mp ? " 起" : "");
+    $("cartSummary").textContent = "已选 " + n + " 件" + (mp ? " · 含时价菜" : "");
   }
   function renderCartDrawer() {
     var es = cartEntries();
