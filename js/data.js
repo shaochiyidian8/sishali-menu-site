@@ -141,7 +141,7 @@ var SISHALI_DATA = {
     },
     {
      "label": "大份",
-     "price": 366
+     "price": 336
     }
    ]
   },
