@@ -1014,6 +1014,7 @@
     });
     $("cartClear").addEventListener("click", function () { state.cart = {}; saveCart(); closeDrawer(); });
     $("orderSubmit").addEventListener("click", function () {
+      if (!state.table) { var _self = this; ensureTable(false, function () { _self.click(); }); return; }
       var es = cartEntries();
       if (!es.length) return;
       if (state._submitting) return;
