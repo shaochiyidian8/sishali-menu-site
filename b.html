@@ -283,7 +283,57 @@
       <a class="btn line" href="#/reserve">预约包厢</a>
     </div>
   </section>
-  <footer class="bfoot">私厦里 · 新闽南 大悦城店 — SI SHA LI · NEW MINNAN CUISINE — B 版样板预览</footer>
+  </section>
+
+  <section class="bview" id="view-menu" hidden>
+    <header class="vhead">
+      <a class="vback" href="#/home">‹ 席卷</a>
+      <h2>菜 单</h2>
+      <a class="vcart-link" id="menuCartBtn">订单<b id="cartCount">0</b></a>
+    </header>
+    <div class="mchips" id="menuChips"></div>
+    <div class="mlist" id="menuList"></div>
+    <div class="cartbar" id="cartBar" hidden><span id="cartSummary"></span><button class="btn red" id="cartOpen">去下单</button></div>
+  </section>
+
+  <section class="bview" id="view-reserve" hidden>
+    <header class="vhead"><a class="vback" href="#/home">‹ 席卷</a><h2>预 约</h2><span class="vph"></span></header>
+    <div class="rform">
+      <label>贵宾称呼 <input id="rvGuest" placeholder="张先生 / 王女士"></label>
+      <label>联系电话 <input id="rvPhone" type="tel" placeholder="用于店家回电确认"></label>
+      <label>预定日期 <input type="date" id="rvDate"></label>
+      <div class="rrow">
+        <label>餐段 <select id="rvSession"><option>晚餐</option></select></label>
+        <label>时间 <input type="time" id="rvTime" value="18:30"></label>
+      </div>
+      <div class="rrow">
+        <label>包厢 <input id="rvRoom" value="秋分包厢"></label>
+        <label>人数 <input type="number" id="rvParty" value="6" min="1"></label>
+      </div>
+      <label class="wide">忌口 / 备注 <input id="rvNote" placeholder="不吃辣、海鲜过敏…"></label>
+      <div class="rbtns"><button class="btn red" id="rvGen">生成预约信息</button><button class="btn line" id="rvCopy" hidden>复制</button></div>
+      <textarea id="rvOut" rows="12" readonly hidden></textarea>
+      <p class="rtel">预定台 0592-6093602 · 服务经理晏子 18046213329（微信同号）</p>
+    </div>
+  </section>
+  </main>
+
+  <aside class="cdrawer" id="cDrawer" hidden>
+    <div class="cd-mask" id="cdMask"></div>
+    <div class="cd-panel">
+      <h3>订单</h3>
+      <div id="cdItems"></div>
+      <label class="cd-note">忌口 / 备注 <input id="cdNote" placeholder="不吃辣、海鲜过敏…"></label>
+      <div class="rbtns">
+        <button class="btn red" id="cdGen">生成订单文本</button>
+        <button class="btn line" id="cdCopy" hidden>复制</button>
+        <button class="btn ghost" id="cdClear">清空</button>
+      </div>
+      <textarea id="cdOut" rows="10" readonly hidden></textarea>
+    </div>
+  </aside>
+
+  <footer class="bfoot">私厦里 · 新闽南 大悦城店 — SI SHA LI · NEW MINNAN CUISINE</footer>
 
 <script>
   var dishes = [
